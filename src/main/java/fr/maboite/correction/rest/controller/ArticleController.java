@@ -3,6 +3,7 @@ package fr.maboite.correction.rest.controller;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 
@@ -31,11 +32,20 @@ public class ArticleController {
 		return "delete article whith id: " + id ;
 	}
 	
-//	@POST
-//	@Path("/id/{param}")
-//	public String  postMethod(@PathParam("param"), String param)
-//	{
-//		
-//	}
+	@POST
+	@Path("/id/{param}")
+	public String  postMethod(@PathParam("param") String param)
+	{
+		System.out.println("post article " + param) ;
+		return "post article whith id: " + param ;
+	}
+	@PUT
+	@Path("/id/{param}")
+	public String  putMethod(@PathParam("param") String param)
+	{
+		System.out.println("modify article  " + param) ;
+		return "modify article whith id: " + param ;
+	}
+	
 	
 }
