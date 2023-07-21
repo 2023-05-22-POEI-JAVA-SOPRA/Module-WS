@@ -1,13 +1,18 @@
 package fr.maboite.correction.rest.controller;
 
+import fr.maboite.correction.rest.controller.rest.pojo.ArticlePojo;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 @Path("/articles")
+@Produces(MediaType.APPLICATION_JSON)//returned MIME type by default
+//@Consumes()    //input MIME type by default
 public class ArticleController {
 
 	@GET
@@ -19,10 +24,13 @@ public class ArticleController {
 	
 	@GET
 	@Path("/id/{id}")
-	public String getMethod(@PathParam("id") Integer id )
+//	@Produces("text/plain") //Reassigned the MIME type
+	public ArticlePojo getMethod(@PathParam("id") Integer id )
 	{
 		System.out.println("article is called with id: " + id );
-		return "article is called with id: " + id;
+		
+		return new ArticlePojo(id,"Article " + id,"Brand"+id ,id*20);
+		
 	}
 	
 	@DELETE
