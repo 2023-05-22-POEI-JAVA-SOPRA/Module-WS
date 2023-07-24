@@ -1,5 +1,7 @@
 package fr.maboite.correction.rest.controller;
 
+import java.util.Locale;
+
 import fr.maboite.correction.rest.controller.rest.pojo.ArticlePojo;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -32,7 +34,7 @@ public class ArticleController {
 	public Response getMethod(@PathParam("id") Integer id) {
 		System.out.println("article is called with id: " + id);
 		if (id < 0) {
-			return Response.status(Response.Status.NOT_FOUND).entity("{'cause': 'not found id is negative json'}").build();
+			return Response.status(Response.Status.NOT_FOUND).entity("{'cause': 'not found id is negative'}").type(MediaType.APPLICATION_JSON).header("typeOfInputMIME","json").header("typeOfOutputMIME", "json").build();
 		}
 
 		ArticlePojo artpojo = new ArticlePojo(id, "Article " + id, "Brand" + id, id * 20);
@@ -47,10 +49,10 @@ public class ArticleController {
 
 		System.out.println("article is called with id: " + id);
 		if (id <= 0)
-			return Response.status(Response.Status.NOT_FOUND).entity("{'cause': 'not found id is negative tp'}").build();
+			return Response.status(Response.Status.NOT_FOUND).entity("{'cause': 'not found id is negative tp'}")/*.type(MediaType.TEXT_PLAIN)*/.header("typeOfInputMIME","tp").header("typeOfOutputMIME", "json").build();
 
 		ArticlePojo artPojoToGet = new ArticlePojo(id, "Article " + id, "Brand" + id, id * 20);
-
+		
 		return Response.ok(artPojoToGet.toString(), MediaType.TEXT_PLAIN).build();
 //		return " Text plain : " +  new ArticlePojo(id,"Article " + id,"Brand"+id ,id*20).toString();
 
