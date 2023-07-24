@@ -1,7 +1,8 @@
 package fr.maboite.correction.rest.controller;
 
-import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
+
 import fr.maboite.correction.rest.pojo.ArticlePojo;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -10,6 +11,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 
 
@@ -27,13 +29,26 @@ public class ArticleController {
 	
 
 	@GET
-	@Path("/{id}")
-	public ArticlePojo getArticleById(@PathParam("id") Integer id) {
+	@Path("{id}")
+	public Response getArticleById(@PathParam("id") Integer id) {
 		System.out.println("coucou console Article Controller");
+		
+		if(id == null) {
+			//je ne rentre jamais ici ?
+			return Response.status(Response.Status.BAD_REQUEST)
+					.header("mon_header", "coucou")
+					.build();
+		} else if (id < 0) {
+			return Response.status(Response.Status.NOT_FOUND)
+					.header("mon_header", "coucou 2")
+					.build();	
+		}
+		
+		
 		ArticlePojo articlePojo = new ArticlePojo();
 		articlePojo.setId(id);
 		
-		return articlePojo;
+		return Response.ok(articlePojo).build();
 	}
 	@DELETE
 	@Path("first")
@@ -55,10 +70,16 @@ public class ArticleController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("post")
-	public ArticlePojo postArticle(ArticlePojo article) {
+	public ArticlePojo postArticle(@Valid ArticlePojo article) {
 		System.out.println("l'article est passé par post");
 		System.out.println("id : " + article.getId() + ", name : "+ article.getName());
-		if(article.getId() == 0) {
+		
+		if (article.getId() < 0) {
+			System.out.println("l'article est passé par if négatif");	
+		}
+		
+		
+		if(article.getId() == null) {
 			article.setId(1);
 			System.out.println("ArticlePojo Id set à 1");
 		}
