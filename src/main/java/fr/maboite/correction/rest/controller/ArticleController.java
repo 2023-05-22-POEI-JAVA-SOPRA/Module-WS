@@ -1,6 +1,7 @@
 package fr.maboite.correction.rest.controller;
 
-import entity.Article;
+import fr.maboite.correction.rest.entity.Article;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -23,15 +24,15 @@ public class ArticleController {
 	@GET
 	//@Produces("application/json")
 	@Produces("text/plain")
-	@Path("/{id}/{description}/{brand}/{price}")
-	public Response getById2(
-			@PathParam("id") Integer id,
+	@Path("/{idArticle}/{description}/{brand}/{price}")
+	public Response getById(@Valid
+			@PathParam("idArticle") Integer id,
 			@PathParam("description") String description,
 			@PathParam("brand") String brand,
 			@PathParam("price") float price) {
-		if (id<0) {
-			return Response.status(Response.Status.NOT_FOUND).header("id_neg","id négatif").entity("L'id doit être positif.").build();
-		}
+//		if (id<0) {
+//			return Response.status(Response.Status.NOT_FOUND).header("id_neg","id négatif").entity("L'id doit être positif.").build();
+//		}
 		System.out.println("getById called with Id : "+id);
 		Article article = new Article();
 		article.setIdArticle(id);
@@ -45,10 +46,10 @@ public class ArticleController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces("application/json")
-	public Article save(Article article) {
-		if(article.getIdArticle()!=null) {
+	public Article save(@Valid Article article) {
+		//if(article.getIdArticle()!=null) {
 			System.out.println("The article "+article.getIdArticle()+" passed by POST");
-		}else {article.setIdArticle();}
+		//}else {article.setIdArticle();}
 		
 		return article;
 	}

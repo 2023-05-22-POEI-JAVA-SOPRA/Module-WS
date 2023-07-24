@@ -1,11 +1,20 @@
-package entity;
+package fr.maboite.correction.rest.entity;
+
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 public class Article {
 	
 	private static int idCounter = 1;
 
+	@NotNull @Positive @Min(value = 1)@Max(value = 99)
 	private Integer idArticle;
 	
+	@Size(min=1,max=20)@NotEmpty
 	private String description;
 	private String brand;
 	private float price;

@@ -2,6 +2,7 @@ package fr.maboite.correction.rest.controller;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
@@ -16,14 +17,14 @@ public class ConstraintViolationExceptionMapper implements ExceptionMapper<Const
 	@Override
 	public Response toResponse(final ConstraintViolationException exception) {
 		return Response.status(Response.Status.BAD_REQUEST)
-				.entity(prepareMessage(exception)).type("text/plain")
+				.entity(prepareMessage(exception)).type(MediaType.APPLICATION_JSON)
 				.build();
 	}
 
 	private String prepareMessage(ConstraintViolationException exception) {
 		StringBuilder msg = new StringBuilder();
 		for (ConstraintViolation<?> cv : exception.getConstraintViolations()) {
-			msg.append(cv.getPropertyPath() + " with value " + cv.getInvalidValue() + " " + cv.getMessage() + "\n");
+			msg.append("{\""+cv.getPropertyPath() + " with value " + cv.getInvalidValue() + "\": \"" + cv.getMessage() + "\"}\n");
 		}
 		return msg.toString();
 	}
