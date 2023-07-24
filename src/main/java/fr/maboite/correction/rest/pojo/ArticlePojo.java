@@ -29,4 +29,9 @@ public class ArticlePojo {
 		this.nom = nom;
 	}
 
+	@Override
+	public String toString() {
+		return "ArticlePojo [id=" + id + ", nom=" + nom + "]";
+	}
+
 }
