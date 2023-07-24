@@ -1,6 +1,7 @@
 package fr.maboite.correction.rest.controller;
 
 import fr.maboite.correction.rest.controller.rest.pojo.ArticlePojo;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -15,6 +16,8 @@ import jakarta.ws.rs.core.MediaType;
 //@Consumes()    //input MIME type by default
 public class ArticleController {
 
+	
+	
 	@GET
 	public String dummyMethod() {
 		
@@ -24,14 +27,14 @@ public class ArticleController {
 	
 	@GET
 	@Path("/id/{id}")
-//	@Produces("text/plain") //Reassigned the MIME type
+//Reassigned the MIME type
 	public ArticlePojo getMethod(@PathParam("id") Integer id )
 	{
 		System.out.println("article is called with id: " + id );
 		
 		return new ArticlePojo(id,"Article " + id,"Brand"+id ,id*20);
 		
-	}
+	}	
 	
 	@DELETE
 	@Path("/id/{id}")
@@ -40,13 +43,42 @@ public class ArticleController {
 		return "delete article whith id: " + id ;
 	}
 	
+	
 	@POST
-	@Path("/id/{param}")
-	public String  postMethod(@PathParam("param") String param)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ArticlePojo  postMethod(ArticlePojo articlePojo)
 	{
-		System.out.println("post article " + param) ;
-		return "post article whith id: " + param ;
+		System.out.println("Article pojo created" + articlePojo) ;
+		if(articlePojo.getId() == null)
+		{
+			articlePojo.setId();
+		}
+	
+		return articlePojo;
 	}
+	
+	
+	@GET
+	@Path("/id/{id}")
+	@Produces(MediaType.TEXT_PLAIN) //Reassigned the MIME type
+	public String getMethodTextPlain(@PathParam("id") Integer id )
+	{
+		System.out.println("article is called with id: " + id );
+		
+		return " Text plain : " +  new ArticlePojo(id,"Article " + id,"Brand"+id ,id*20).toString();
+		
+	}	
+	
+	
+//	@POST
+//	@Path("/id/{param}")
+//	public String  postMethod(@PathParam("param") String param)
+//	{
+//		System.out.println("post article " + param) ;
+//		
+//	
+//		return "post article whith id: " + param ;
+//	}
 	@PUT
 	@Path("/id/{param}")
 	public String  putMethod(@PathParam("param") String param)

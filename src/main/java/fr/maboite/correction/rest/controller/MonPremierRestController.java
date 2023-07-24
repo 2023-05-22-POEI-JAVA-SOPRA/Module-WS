@@ -1,11 +1,17 @@
 package fr.maboite.correction.rest.controller;
 
+import fr.maboite.correction.rest.controller.rest.pojo.VoiturePojo;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 @Path("/voitures")
+@Produces(MediaType.APPLICATION_JSON)
 public class MonPremierRestController {
 
 	@GET
@@ -25,6 +31,15 @@ public class MonPremierRestController {
 		return "delete voitures " + id ;
 	}
 	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public VoiturePojo save(VoiturePojo voiturePojo)
+	{
+		
+		System.out.println("Voiture created : " + voiturePojo.getId() + " passed by POST");
+		voiturePojo.setName("Voiture ");
+		return voiturePojo;
+	}
 
 
 }

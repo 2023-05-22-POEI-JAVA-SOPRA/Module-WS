@@ -5,6 +5,11 @@ package fr.maboite.correction.rest.controller.rest.pojo;
 //Non final et aucun de ses champs ne peut l'être
 
 public class ArticlePojo  {
+	
+	
+	private static int idCounter = 1;
+	
+	
 	private Integer id;
 	
 	private String name;
@@ -20,7 +25,9 @@ public class ArticlePojo  {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
+	public void setId() {
+		this.id = idCounter++ ;
+	}
 	public String getName() {
 		return name;
 	}
@@ -37,6 +44,7 @@ public class ArticlePojo  {
 		this.name = name;
 		this.brand = brand;
 		this.price = price;
+		idCounter++;
 	}
 
 	public String getBrand() {
@@ -57,6 +65,11 @@ public class ArticlePojo  {
 
 	public ArticlePojo() {
 		super();
+	}
+
+	@Override
+	public String toString() {
+		return "ArticlePojo [id=" + id + ", name=" + name + ", brand=" + brand + ", price=" + price + "]";
 	}
 	
 	
