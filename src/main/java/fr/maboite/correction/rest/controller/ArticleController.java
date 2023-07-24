@@ -9,6 +9,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 @Path("/articles")
 public class ArticleController {
@@ -23,18 +24,22 @@ public class ArticleController {
 	//@Produces("application/json")
 	@Produces("text/plain")
 	@Path("/{id}/{description}/{brand}/{price}")
-	public String getById(
+	public Response getById2(
 			@PathParam("id") Integer id,
 			@PathParam("description") String description,
 			@PathParam("brand") String brand,
 			@PathParam("price") float price) {
+		if (id<0) {
+			return Response.status(Response.Status.NOT_FOUND).header("id_neg","id négatif").entity("L'id doit être positif.").build();
+		}
 		System.out.println("getById called with Id : "+id);
 		Article article = new Article();
 		article.setIdArticle(id);
 		article.setDescription(description);
 		article.setBrand(brand);
 		article.setPrice(price);
-		return article.toString();
+		
+		return Response.ok(article.toString()).build();
 	}
 	
 	@POST
