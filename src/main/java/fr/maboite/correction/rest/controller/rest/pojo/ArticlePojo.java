@@ -1,6 +1,12 @@
 package fr.maboite.correction.rest.controller.rest.pojo;
 
 
+
+//import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+
 // Pojo: Plain Old Java Object
 //Non final et aucun de ses champs ne peut l'être
 
@@ -9,13 +15,20 @@ public class ArticlePojo  {
 	
 	private static int idCounter = 1;
 	
-	
+//	@NotNull
+//	@Positive
 	private Integer id;
 	
+	@NotNull
+	@Size(min = 3, max = 255)
 	private String name;
 	
+	@NotNull
+	@Size(min = 3, max = 255)
 	private String brand;
-	
+	@NotNull
+	//@Min(value = 0)
+	@Positive
 	private double price;
 
 	public Integer getId() {

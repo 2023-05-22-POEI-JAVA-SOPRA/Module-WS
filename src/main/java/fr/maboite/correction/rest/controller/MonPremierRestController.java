@@ -1,6 +1,8 @@
 package fr.maboite.correction.rest.controller;
 
 import fr.maboite.correction.rest.controller.rest.pojo.VoiturePojo;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Pattern;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -33,13 +35,16 @@ public class MonPremierRestController {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public VoiturePojo save(VoiturePojo voiturePojo)
+	public VoiturePojo save(@Valid VoiturePojo voiturePojo)
 	{
 		
 		System.out.println("Voiture created : " + voiturePojo.getId() + " passed by POST");
-		voiturePojo.setName("Voiture ");
+//		voiturePojo.setName("Voiture ");
 		return voiturePojo;
 	}
+	
+	
+	
 
 
 }

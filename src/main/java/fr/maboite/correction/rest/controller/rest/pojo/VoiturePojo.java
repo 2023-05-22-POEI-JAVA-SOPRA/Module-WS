@@ -1,10 +1,15 @@
 package fr.maboite.correction.rest.controller.rest.pojo;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 public class VoiturePojo {
 	
 	
 	private int id;
 	
+	@NotNull
+	@Size(min = 3, max = 10 ,message = "Attention la taille de ce champ doit suivre la norme X")
 	private String name;
 
 	public int getId() {

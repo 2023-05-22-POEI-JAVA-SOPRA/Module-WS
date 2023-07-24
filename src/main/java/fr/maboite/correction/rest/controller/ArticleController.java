@@ -1,8 +1,8 @@
 package fr.maboite.correction.rest.controller;
 
-import java.util.Locale;
 
 import fr.maboite.correction.rest.controller.rest.pojo.ArticlePojo;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -12,9 +12,9 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Request;
+
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.Response.ResponseBuilder;
+
 
 @Path("/articles")
 @Produces(MediaType.APPLICATION_JSON) // returned MIME type by default
@@ -67,7 +67,7 @@ public class ArticleController {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response postMethod(ArticlePojo articlePojo) {
+	public Response postMethod(@Valid ArticlePojo articlePojo) {
 		System.out.println("Article pojo created" + articlePojo);
 		if (articlePojo.getId() == null) {
 			articlePojo.setId();
