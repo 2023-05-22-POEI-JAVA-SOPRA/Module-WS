@@ -1,7 +1,11 @@
 package fr.maboite.correction.rest.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
@@ -16,15 +20,17 @@ public class ConstraintViolationExceptionMapper implements ExceptionMapper<Const
 	@Override
 	public Response toResponse(final ConstraintViolationException exception) {
 		return Response.status(Response.Status.BAD_REQUEST)
-				.entity(prepareMessage(exception)).type("text/plain")
+				.entity(prepareMessage(exception)).type(MediaType.APPLICATION_JSON)
 				.build();
 	}
 
-	private String prepareMessage(ConstraintViolationException exception) {
-		StringBuilder msg = new StringBuilder();
+	private List<JSONFormatPojo> prepareMessage(ConstraintViolationException exception) {
+		List<JSONFormatPojo> list = new ArrayList<>();
 		for (ConstraintViolation<?> cv : exception.getConstraintViolations()) {
-			msg.append(cv.getPropertyPath() + " with value " + cv.getInvalidValue() + " " + cv.getMessage() + "\n");
+			list.add(new JSONFormatPojo("" + cv.getPropertyPath(),"" + cv.getInvalidValue(), "" + cv.getMessage()));
 		}
-		return msg.toString();
+		return list;
 	}
+	
+	public record JSONFormatPojo(String propertyPath, String invalidValue, String message) {}
 }
