@@ -15,70 +15,64 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.ResponseBuilder;
 
 @Path("/articles")
-@Produces(MediaType.APPLICATION_JSON)//returned MIME type by default
+@Produces(MediaType.APPLICATION_JSON) // returned MIME type by default
 //@Consumes()    //input MIME type by default
 public class ArticleController {
 
-	
-	
 	@GET
 	public String dummyMethod() {
-		
+
 		System.out.println("Articles get is called");
 		return "Articles get is called !";
 	}
-	
+
 	@GET
 	@Path("/id/{id}")
 //Reassigned the MIME type
-	public Response getMethod(@PathParam("id") Integer id )
-	{
-		System.out.println("article is called with id: " + id );
-		if(id <0 )
-		{
-		return Response.status(Response.Status.NOT_FOUND).entity("{'cause': 'not found'}").build();
+	public Response getMethod(@PathParam("id") Integer id) {
+		System.out.println("article is called with id: " + id);
+		if (id < 0) {
+			return Response.status(Response.Status.NOT_FOUND).entity("{'cause': 'not found id is negative json'}").build();
 		}
-		
-		ArticlePojo artpojo = new ArticlePojo(id,"Article " + id,"Brand"+id ,id*20);
-		return Response.ok(artpojo,MediaType.APPLICATION_JSON).build();
-		
-		
-	}	
-	
+
+		ArticlePojo artpojo = new ArticlePojo(id, "Article " + id, "Brand" + id, id * 20);
+		return Response.ok(artpojo, MediaType.APPLICATION_JSON).build();
+
+	}
+
+	@GET
+	@Path("/id/{id}")
+	@Produces(MediaType.TEXT_PLAIN) // Reassigned the MIME type
+	public Response getMethodTextPlain(@PathParam("id") Integer id) {
+
+		System.out.println("article is called with id: " + id);
+		if (id <= 0)
+			return Response.status(Response.Status.NOT_FOUND).entity("{'cause': 'not found id is negative tp'}").build();
+
+		ArticlePojo artPojoToGet = new ArticlePojo(id, "Article " + id, "Brand" + id, id * 20);
+
+		return Response.ok(artPojoToGet.toString(), MediaType.TEXT_PLAIN).build();
+//		return " Text plain : " +  new ArticlePojo(id,"Article " + id,"Brand"+id ,id*20).toString();
+
+	}
+
 	@DELETE
 	@Path("/id/{id}")
 	public String deleteMethod(@PathParam("id") Integer id) {
-		System.out.println("delete article " + id) ;
-		return "delete article whith id: " + id ;
+		System.out.println("delete article " + id);
+		return "delete article whith id: " + id;
 	}
-	
-	
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ArticlePojo  postMethod(ArticlePojo articlePojo)
-	{
-		System.out.println("Article pojo created" + articlePojo) ;
-		if(articlePojo.getId() == null)
-		{
+	public Response postMethod(ArticlePojo articlePojo) {
+		System.out.println("Article pojo created" + articlePojo);
+		if (articlePojo.getId() == null) {
 			articlePojo.setId();
 		}
-	
-		return articlePojo;
+		return Response.ok(articlePojo, MediaType.APPLICATION_JSON).status(Response.Status.CREATED).build();
 	}
-	
-	
-	@GET
-	@Path("/id/{id}")
-	@Produces(MediaType.TEXT_PLAIN) //Reassigned the MIME type
-	public String getMethodTextPlain(@PathParam("id") Integer id )
-	{
-		System.out.println("article is called with id: " + id );
-		
-		return " Text plain : " +  new ArticlePojo(id,"Article " + id,"Brand"+id ,id*20).toString();
-		
-	}	
-	
-	
+
 //	@POST
 //	@Path("/id/{param}")
 //	public String  postMethod(@PathParam("param") String param)
@@ -90,11 +84,9 @@ public class ArticleController {
 //	}
 	@PUT
 	@Path("/id/{param}")
-	public String  putMethod(@PathParam("param") String param)
-	{
-		System.out.println("modify article  " + param) ;
-		return "modify article whith id: " + param ;
+	public String putMethod(@PathParam("param") String param) {
+		System.out.println("modify article  " + param);
+		return "modify article whith id: " + param;
 	}
-	
-	
+
 }
