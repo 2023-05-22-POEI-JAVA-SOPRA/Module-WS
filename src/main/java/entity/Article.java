@@ -1,8 +1,10 @@
 package entity;
 
 public class Article {
+	
+	private static int idCounter = 1;
 
-	private int idArticle;
+	private Integer idArticle;
 	
 	private String description;
 	private String brand;
@@ -19,12 +21,16 @@ public class Article {
 		this.price = price;
 	}
 
-	public int getIdArticle() {
+	public Integer getIdArticle() {
 		return idArticle;
 	}
 
-	public void setIdArticle(int idArticle) {
+	public void setIdArticle(Integer idArticle) {
 		this.idArticle = idArticle;
+	}
+	
+	public void setIdArticle() {
+		this.idArticle = idCounter++;
 	}
 
 	public String getDescription() {
