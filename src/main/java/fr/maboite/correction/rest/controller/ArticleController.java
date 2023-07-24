@@ -49,14 +49,25 @@ public class ArticleController {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ArticlePojo postArticlePojo(ArticlePojo ap) {	
-		ArticlePojo res = new ArticlePojo();
-		res.setName(ap.getName());
-		
-		if(res.getId() == 0) {
-			res.setId(ap.getId());
+
+		if(ap.getId() == null) {
+			ap.setCounterId();
 		}
-		System.out.println("l'article a été crée");
-		return res;
+		System.out.println("l'article a été crée avec l'id " + ap.getId());
+		return ap;
+	}
+	
+	@GET
+	@Path("articlePojo/{id}")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getArticlePojoText(@PathParam(value = "id") Integer id) {
+		
+		ArticlePojo ap = new ArticlePojo();
+		
+		ap.setId(id);
+		ap.setName("je suis un article");
+		
+		return ap.toString();
 	}
 	
 

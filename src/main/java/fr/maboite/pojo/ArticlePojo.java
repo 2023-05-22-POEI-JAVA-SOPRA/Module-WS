@@ -2,14 +2,22 @@ package fr.maboite.pojo;
 
 public class ArticlePojo {
 	
-	private int id;
+	static private Integer counterId = 0;
+	
+	private Integer id;
 	private String name;
-	public int getId() {
+	
+	public Integer getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public void setCounterId() {
+		this.id = counterId++;
+	}
+	
 	public String getName() {
 		return name;
 	}
