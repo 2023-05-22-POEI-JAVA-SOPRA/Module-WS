@@ -2,9 +2,8 @@ package fr.maboite.pojo;
 
 public class ArticlePojo {
 
-	private String nom;
-
 	public int id;
+	private String nom;
 
 	public String getNom() {
 		return nom;
@@ -20,6 +19,11 @@ public class ArticlePojo {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "ArticlePojo [id=" + id + ", nom=" + nom + "]";
 	}
 
 }
