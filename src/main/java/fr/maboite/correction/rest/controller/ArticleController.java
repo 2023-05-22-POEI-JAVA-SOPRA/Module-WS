@@ -10,6 +10,9 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Request;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.ResponseBuilder;
 
 @Path("/articles")
 @Produces(MediaType.APPLICATION_JSON)//returned MIME type by default
@@ -28,11 +31,17 @@ public class ArticleController {
 	@GET
 	@Path("/id/{id}")
 //Reassigned the MIME type
-	public ArticlePojo getMethod(@PathParam("id") Integer id )
+	public Response getMethod(@PathParam("id") Integer id )
 	{
 		System.out.println("article is called with id: " + id );
+		if(id <0 )
+		{
+		return Response.status(Response.Status.NOT_FOUND).entity("{'cause': 'not found'}").build();
+		}
 		
-		return new ArticlePojo(id,"Article " + id,"Brand"+id ,id*20);
+		ArticlePojo artpojo = new ArticlePojo(id,"Article " + id,"Brand"+id ,id*20);
+		return Response.ok(artpojo,MediaType.APPLICATION_JSON).build();
+		
 		
 	}	
 	
