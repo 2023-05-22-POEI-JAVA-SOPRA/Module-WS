@@ -11,6 +11,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 @Path("/articles")
 @Produces(MediaType.APPLICATION_JSON)
@@ -24,13 +25,18 @@ public class ArticleController {
 	
 	@GET
 	@Path("/{id}")
-	public ArticlePojo getArticles(@PathParam("id") Integer id) { 
+	public Response getArticles(@PathParam("id") Integer id) {
 		System.out.println("getArticles est appelée avec l'id : " + id);
+		if (id < 0) {
+			return Response.status(Response.Status.NOT_FOUND)
+					.build();
+		}
+
 		ArticlePojo articlePojo = new ArticlePojo();
 		articlePojo.setId(id);
 		articlePojo.setNom("Article avec l'id : " + id);
 		
-		return articlePojo;
+		return Response.ok(articlePojo).build();
 	}
 	
 	@GET

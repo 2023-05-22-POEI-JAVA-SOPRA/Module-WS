@@ -107,6 +107,12 @@
 			<version>8.0.1.Final</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.glassfish.jersey.ext</groupId>
+			<artifactId>jersey-bean-validation</artifactId>
+			<version>3.1.2</version>
+		</dependency>
+
 		<!-- Jersey pour les WebServices JAX-RS -->
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
@@ -119,22 +125,12 @@
 			<version>3.1.2</version>
 		</dependency>
 
-		<!--Jackson pour la conversion POJO <-> JSON -->
+		<!--JSON B pour la conversion POJO <-> JSON -->
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-json-jackson</artifactId>
+			<artifactId>jersey-media-json-binding</artifactId>
 			<version>3.1.2</version>
 		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.module</groupId>
-			<artifactId>jackson-module-jakarta-xmlbind-annotations</artifactId>
-			<version>2.15.2</version>
-		</dependency>
-		  <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>4.0.0</version>
-        </dependency>
 
 		<!-- Test -->
 		<dependency>
