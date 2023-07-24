@@ -1,5 +1,9 @@
 package fr.maboite.correction.rest.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import fr.maboite.correction.rest.controller.rest.pojo.JsonFormatPojo;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.core.MediaType;
@@ -23,7 +27,7 @@ public class ConstraintViolationExceptionMapper implements ExceptionMapper<Const
 //	}
 	@Override
 	public Response toResponse(final ConstraintViolationException exception) {
-		return Response.status(Response.Status.BAD_REQUEST).entity(prepareMessageInJson(exception))
+		return Response.status(Response.Status.BAD_REQUEST).entity(prepareMessageToJson(exception))
 //				.entity(prepareMessage(exception)).type("text/plain")
 				.type(MediaType.APPLICATION_JSON).build();
 	}
@@ -35,21 +39,16 @@ public class ConstraintViolationExceptionMapper implements ExceptionMapper<Const
 		}
 		return msg.toString();
 	}
-	
-	private String prepareMessageInJson(ConstraintViolationException exception)
-	{
+	private List<JsonFormatPojo> prepareMessageToJson(ConstraintViolationException exception) {
 		
-//		ResponseBuilder rb = ResponseBuilder();
-		StringBuilder msg = new StringBuilder();
-
-		for (ConstraintViolation<?> cv : exception.getConstraintViolations()) {
-			msg.append("{ "  + "\"propertyPath\": \"" + cv.getPropertyPath() + "\"," 
-					+ "\"invalidValue\": \"" + cv.getInvalidValue() + "\"," 
-					+ "\"message\": \"" + cv.getMessage() + "\"" 
-					
-					+ "} ");
-			
+		List<JsonFormatPojo> listJson = new ArrayList<JsonFormatPojo>();
+		
+		for(ConstraintViolation<?> cv : exception.getConstraintViolations())
+		{
+			JsonFormatPojo msg = new JsonFormatPojo(cv.getPropertyPath().toString(),cv.getInvalidValue().toString(),cv.getMessage());;
+			listJson.add(msg);
 		}
-		return msg.toString();
+		return listJson;
 	}
+
 }
