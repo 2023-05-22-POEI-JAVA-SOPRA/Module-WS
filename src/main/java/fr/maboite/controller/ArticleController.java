@@ -3,6 +3,7 @@ package fr.maboite.controller;
 import java.util.Random;
 
 import fr.maboite.pojo.ArticlePojo;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -11,6 +12,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 @Path("/articles")
 @Produces("application/json")
@@ -28,15 +30,33 @@ public class ArticleController {
 //		return article;
 //	}
 	
-	@GET
+//	@GET
+//	@Path("/{id}")
+//	@Produces(MediaType.TEXT_PLAIN)
+//	public String getByIdToText(@PathParam("id") Integer id) { // URL que traite cette méthode :
+//		// URL application + URL de la classe + URL de la méthode
+//		ArticlePojo article = new ArticlePojo();
+//		article.setId(id);
+//		article.setNom("Article numéro " + id);
+//		return article.toString();
+//	}
+	
+	@GET // http://localhost:8080/poe-java-ws/rest/v1/articles/id
 	@Path("/{id}")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String getByIdToText(@PathParam("id") Integer id) { // URL que traite cette méthode :
+	public Response getById(@PathParam("id") Integer  id) { // URL que traite cette méthode :
 		// URL application + URL de la classe + URL de la méthode
-		ArticlePojo article = new ArticlePojo();
-		article.setId(id);
-		article.setNom("Article numéro " + id);
-		return article.toString();
+		if (id < 0) {
+			return Response.status(Response.Status.NOT_FOUND)
+					.header("newHeader", "header test")
+					.entity("Id négatif")
+					.build();
+		}
+
+		ArticlePojo articlePojo = new ArticlePojo();
+		articlePojo.setId(id);
+		articlePojo.setNom("Article avec l'id : " + id);
+		
+		return Response.ok(articlePojo).build();
 	}
 
 	@DELETE
@@ -49,8 +69,8 @@ public class ArticleController {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ArticlePojo postArticle(ArticlePojo article) {
-		if (article.getId() < 1) {
+	public ArticlePojo postArticle(@Valid ArticlePojo article) {
+		if (article.getId() == null) {
 			Random random = new Random();
 			int randomId = random.nextInt(1000) + 1;
 			article.setId(randomId);
