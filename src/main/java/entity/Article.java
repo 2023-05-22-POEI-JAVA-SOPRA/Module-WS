@@ -1,5 +1,9 @@
 package entity;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+
 //import javax.persistence.Entity;
 //import javax.persistence.GeneratedValue;
 //import javax.persistence.GenerationType;
@@ -11,10 +15,18 @@ package entity;
 public class Article {
 
 	//@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NotNull
+	@Positive
 	private int idArticle;
-
+	
+	@NotNull
+	@Size(min=1,max=255,
+	message="Attention, "
+			+ "la description doit contenir minimum 1"
+			+ " caractère et maxixmum 255 caractères")
 	private String description;
-
+	
+	
 	private String brand;
 
 	private Float price;

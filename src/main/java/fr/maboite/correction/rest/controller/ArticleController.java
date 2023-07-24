@@ -2,6 +2,7 @@ package fr.maboite.correction.rest.controller;
 
 import entity.Article;
 import entity.ArticlePojo;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -69,7 +70,7 @@ public class ArticleController {
 	@Produces("text/plain")
 	@Path("/blablabla")
 	public String getArticlePojoPlainText(){
-		ArticlePojo monPojo=new ArticlePojo(12,"maBelPojo309");
+		ArticlePojo monPojo=new ArticlePojo(12,"maBelPojo309","MaPojo@peugeot.fr");
 		System.out.println("PLAIN TEXT getArticlePojoPlainText - objet ArticlePojo : "+monPojo);
 		System.out.println(monPojo);
 		return monPojo.toString();
@@ -85,10 +86,13 @@ public class ArticleController {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ArticlePojo maMethodePost(ArticlePojo a) {
+	public ArticlePojo maMethodePost(@Valid ArticlePojo a) {
+		System.out.println(a);
 		System.out.println("L'article "+a.getId()+" est passe par POST");
 		
-		a.setName("Mon ArticlePojo Modifié");
+		System.out.println("\n\n ArticlePojo MODIFIE : ");
+		a.setEmail("BABIBU");
+		a.setId(-1);
 		a.setId(a.getId()+12);
 		System.out.println(a);
 		return a;
