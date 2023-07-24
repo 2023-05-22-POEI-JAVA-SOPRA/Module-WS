@@ -66,7 +66,7 @@ public class ArticleController {
 	}
 
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)	
 	public Response postMethod(@Valid ArticlePojo articlePojo) {
 		System.out.println("Article pojo created" + articlePojo);
 		if (articlePojo.getId() == null) {
