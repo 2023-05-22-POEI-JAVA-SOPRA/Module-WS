@@ -1,4 +1,4 @@
-package fr.maboite.correction.rest.controller;
+package fr.maboite.controller;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;

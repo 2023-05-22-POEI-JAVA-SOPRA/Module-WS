@@ -1,4 +1,4 @@
-package fr.maboite.correction.rest.controller;
+package fr.maboite.controller;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
