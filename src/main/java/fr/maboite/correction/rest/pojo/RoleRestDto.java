@@ -33,8 +33,4 @@ public class RoleRestDto {
 		role.setName(this.name);
 		return role;
 	}
-	
-	
-	
-
 }
