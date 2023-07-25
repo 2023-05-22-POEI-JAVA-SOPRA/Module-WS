@@ -1,5 +1,9 @@
 package fr.maboite.correction.rest.pojo;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Positive;
+
 /**
  * Un Plain Old Java Object. 
  * A chaque attribut correspond un getter et un setter
@@ -9,8 +13,11 @@ package fr.maboite.correction.rest.pojo;
  */
 public class ArticlePojo {
 
+	@Positive
 	private Integer id;
 
+	@NotEmpty
+	@Email
 	private String nom;
 
 	public Integer getId() {

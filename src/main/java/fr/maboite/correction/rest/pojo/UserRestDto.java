@@ -2,7 +2,7 @@ package fr.maboite.correction.rest.pojo;
 
 import fr.maboite.correction.jpa.entity.User;
 
-public class UserPojo {
+public class UserRestDto {
 
 	private Integer idUser;
 
@@ -12,11 +12,11 @@ public class UserPojo {
 
 	private Integer connectionNumber;
 
-	public UserPojo() {
+	public UserRestDto() {
 
 	}
 
-	public UserPojo(User user) {
+	public UserRestDto(User user) {
 		this.idUser = user.getIdUser();
 		this.login = user.getLogin();
 		this.password = user.getPassword();

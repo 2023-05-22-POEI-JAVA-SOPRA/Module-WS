@@ -3,6 +3,7 @@ package fr.maboite.correction.rest.controller;
 import java.util.Random;
 
 import fr.maboite.correction.rest.pojo.ArticlePojo;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -60,7 +61,7 @@ public class ArticleController {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ArticlePojo sauvegarde(ArticlePojo articlePojo) {
+	public ArticlePojo sauvegarde(@Valid ArticlePojo articlePojo) {
 		System.out.println("L'article :  " + articlePojo + " a été soumis par POST.");
 		if (articlePojo.getId() == null) {
 			articlePojo.setId(new Random().nextInt());

@@ -1,5 +1,6 @@
 package fr.maboite.correction.rest.controller;
 
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -22,7 +23,7 @@ public class MonPremierRestController {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public VoiturePojo sauvegarde(VoiturePojo voiturePojo) {
+	public VoiturePojo sauvegarde(@Valid VoiturePojo voiturePojo) {
 		System.out.println("La voiture : " + voiturePojo.getId() + " a été passée par POST ");
 		voiturePojo.setName("Voiture postée");
 		return voiturePojo;
