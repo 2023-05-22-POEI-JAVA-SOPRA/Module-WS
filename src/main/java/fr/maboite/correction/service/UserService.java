@@ -29,10 +29,5 @@ public class UserService {
 		return userDao.delete(id);
 	}
 	
-	public static void main(String[] args) {
-		UserService us = new UserService();
-		us.create(new User("name", "ggkjj", 122));
-		System.out.println("=====================================");
-		System.out.println(us.getAll());
-	}
+
 }
