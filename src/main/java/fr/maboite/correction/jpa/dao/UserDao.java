@@ -1,5 +1,6 @@
 package fr.maboite.correction.jpa.dao;
 
+
 import java.util.List;
 
 import jakarta.persistence.EntityManager;
@@ -13,7 +14,7 @@ public class UserDao {
 	String configName = "persistenceUnit";
 	EntityManagerFactory emf = null;
 	EntityManager em = null;
-	
+
 	public User getById(Integer id) {
 		try {
 			emf = Persistence.createEntityManagerFactory(configName);
@@ -29,7 +30,7 @@ public class UserDao {
 				em.close();
 		}
 	}
-	
+
 	public List<User> getAll() {
 		try {
 			emf = Persistence.createEntityManagerFactory(configName);
@@ -45,7 +46,7 @@ public class UserDao {
 				em.close();
 		}
 	}
-	
+
 	public boolean update(User user, Integer id) {
 		try {
 			emf = Persistence.createEntityManagerFactory(configName);
@@ -68,7 +69,7 @@ public class UserDao {
 				em.close();
 		}
 	}
-	
+
 	public boolean create(User user) {
 		try {
 			emf = Persistence.createEntityManagerFactory(configName);
@@ -88,7 +89,7 @@ public class UserDao {
 				em.close();
 		}
 	}
-	
+
 	public boolean delete(Integer id) {
 		try {
 			emf = Persistence.createEntityManagerFactory(configName);
@@ -108,5 +109,5 @@ public class UserDao {
 				em.close();
 		}
 	}
-	
+
 }

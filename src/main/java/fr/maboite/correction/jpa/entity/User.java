@@ -16,8 +16,8 @@ public class User {
 	private String password;
 	@Column(name = "connection_number")
 	private Integer connectionNumber;
-	
-	
+
+
 	public User() {
 		super();
 	}
@@ -76,5 +76,4 @@ public class User {
 		return "User [idUser=" + idUser + ", login=" + login + ", password=" + password + ", connectionNumber="
 				+ connectionNumber + "]\n";
 	}
-	
 }
