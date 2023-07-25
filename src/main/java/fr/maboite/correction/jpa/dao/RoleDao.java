@@ -2,33 +2,33 @@ package fr.maboite.correction.jpa.dao;
 
 import java.util.List;
 
-
-
 import fr.maboite.correction.jpa.EntityManagerFactorySingleton;
+import fr.maboite.correction.jpa.entity.Role;
 import fr.maboite.correction.jpa.entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
 /**
- * DAO (Data Access Object) pour les entités User
+ * DAO (Data Access Object) pour les entités Role
  */
-public class UserDao {
+public class RoleDao {
+
 
 	/**
-	 * Sauvegarde (insère ou met à jour) user.
+	 * Sauvegarde (insère ou met à jour) role.
 	 * 
-	 * @param user
+	 * @param role
 	 * @return
 	 */
-	public User save(User user) {
+	public Role save(Role role) {
 		EntityManager entityManager =null;
 		try {
 			entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
 			EntityTransaction trans = entityManager.getTransaction();
 			trans.begin();
-			entityManager.persist(user);
+			entityManager.persist(role);
 			trans.commit();
-			return user;
+			return role;
 
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -43,16 +43,31 @@ public class UserDao {
 	}
 
 	/**
-	 * Renvoie le User ayant id, peut renvoyer null.
+	 * Renvoie le Role ayant id, peut renvoyer null.
 	 * 
 	 * @param id
 	 * @return
 	 */
-	public User get(Integer id) {
+	public Role get(Integer id) {
 		EntityManager entityManager = null;
 		try {
 			 entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
-			 return entityManager.find(User.class, id);
+//			 System.out.println("===============================================");
+//			 System.out.println("===============================================");
+//			 System.out.println("===============================================");
+//			 System.out.println("====================dfs===========================");
+//			 User user = entityManager.find( User.class, 1 );            
+//		        System.out.println( "Rôles associés à Anderson" );
+//		        for( Role associatedRole : user.getRoles() ) {
+//		            System.out.println( associatedRole );
+//		        }
+//
+//		        Role role = entityManager.find( Role.class, 1 );            
+//		        System.out.println( "Utilisateurs possédant le rôle client" );
+//		        for( User associatedUser : role.getUsers() ) {
+//		            System.out.println( associatedUser );
+//		        }
+			 return entityManager.find(Role.class, id);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e);
@@ -65,7 +80,7 @@ public class UserDao {
 	}
 
 	/**
-	 * Supprime l'user avec l'id id
+	 * Supprime le role avec l'id id
 	 * 
 	 * @param id
 	 */
@@ -84,18 +99,21 @@ public class UserDao {
 			try {
 				entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
 				EntityTransaction trans = entityManager.getTransaction();
-				User user = entityManager.find(User.class, id);
+				Role role = entityManager.find(Role.class, id);
 				trans.begin();
-				entityManager.remove(user);
+				entityManager.remove(role);
 				trans.commit();
 				return true;
 
 			} catch (Exception e) {
+				// TODO: handle exception
 				System.out.println(e);
 				return false;
 			} finally {
 				if (entityManager != null)
 					entityManager.close();
+//				if (em != null)
+//					em.close();
 			}
 
 		
@@ -103,17 +121,17 @@ public class UserDao {
 	}
 
 	/**
-	 * Renvoie tous les users en base de données. Ne devrait pas être codé en
+	 * Renvoie tous les roles en base de données. Ne devrait pas être codé en
 	 * production : il faut toujours paginer ou filtrer les données.
 	 * 
 	 * @return
 	 */
-	public List<User> findAll() {
+	public List<Role> findAll() {
 		
 		EntityManager entityManager = null;
 		try {
 			 entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
-			 return entityManager.createQuery("select u from User u ", User.class).getResultList();
+			 return entityManager.createQuery("select r from Role r ", Role.class).getResultList();
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e);
@@ -125,5 +143,7 @@ public class UserDao {
 		}
 		
 	}
+	
+	
 
 }

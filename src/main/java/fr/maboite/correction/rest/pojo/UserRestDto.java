@@ -1,15 +1,23 @@
 package fr.maboite.correction.rest.pojo;
 
 import fr.maboite.correction.jpa.entity.User;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 
 public class UserRestDto {
 
+	
 	private Integer idUser;
-
+	@NotEmpty(message = "login field is required") 
+	@Size(min = 3,max = 20,message = "login field must contain at least 3 characters and 20 at must")
 	private String login;
-
+	@NotEmpty(message = "password field is required") 
+	@Size(min = 3,max = 20,message = "password field must contain at least 3 characters and 20 at must")
 	private String password;
-
+	@NotNull
+	@PositiveOrZero(message = "connectionNumber field must be postive or equal to 0")
 	private Integer connectionNumber;
 
 	public UserRestDto() {
