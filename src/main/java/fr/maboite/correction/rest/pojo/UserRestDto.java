@@ -4,11 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.maboite.correction.jpa.entity.User;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public class UserRestDto {
 	private Integer idUser;
+	@NotNull @Email @Size(max = 20)
 	private String login;
+	@NotNull @Size(max = 20)
 	private String password;
+	@NotNull
 	private Integer connectionNumber;
 
 
@@ -86,5 +92,9 @@ public class UserRestDto {
 			list.add(new UserRestDto(user));
 		}
 		return list;
+	}
+	
+	public User convertToUser() {
+		return new User(login, password, connectionNumber);
 	}
 }

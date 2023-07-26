@@ -8,8 +8,10 @@ import fr.maboite.correction.rest.pojo.UserRestDto;
 import fr.maboite.correction.service.UserService;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -56,6 +58,27 @@ public class UserController {
 			return Response.ok("User created", MediaType.TEXT_PLAIN).build();
 		} else {
 			return Response.ok("User not created", MediaType.TEXT_PLAIN).build();
+		}
+	}
+	
+	@PUT @Path("id/{param}")
+	public Response update(@Valid UserRestDto urd, @PathParam("param") Integer id) {
+		User u = urd.convertToUser();
+		if (service.update(u , id)) {
+			return Response.ok("User updated").build();
+		} else {
+			return Response.status(Status.NOT_FOUND).entity("User not found").type(MediaType.TEXT_PLAIN).build();
+
+		}
+	}
+	
+	@DELETE @Path("id/{param}")
+	public Response delete(@PathParam("param") Integer id) {
+		if (service.delete(id)) {
+			return Response.ok("User deleted").build();
+		} else {
+			return Response.status(Status.NOT_FOUND).entity("User not found").type(MediaType.TEXT_PLAIN).build();
+
 		}
 	}
 	
