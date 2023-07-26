@@ -71,7 +71,7 @@ public class RoleServiceTest {
 
 	@ParameterizedTest()
 	@CsvSource(value = { "admin", "test", "superadmin" }, delimiter = ',')
-	public void testGetBy_with_valid_id_should_return_user(String r)
+	public void testGetBy_with_valid_id_should_return_role(String r)
 			throws Exception {
 		// Arrange
 		Role role = new Role(r);
@@ -85,7 +85,7 @@ public class RoleServiceTest {
 	}
 	
 	@Test
-	public void test_find_all() throws Exception {
+	public void test_find_all_roles() throws Exception {
 
 		List<Role> roles = roleService.findAll();
 		assertNotNull(roles);
