@@ -1,24 +1,43 @@
 package fr.maboite.correction.jpa.entity;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "T_Users")
+@Table(name = "t_users")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idUser;
 	
+	@Email
+	@NotNull
+	@Size(max = 20)
 	private String login;
 	
+
+	@NotNull
+	@Size(max = 20)
 	private String password;
 	
+	@NotNull
 	private Integer connectionNumber;
+
+	public User(User user) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Integer getIdUser() {
 		return idUser;
@@ -51,6 +70,4 @@ public class User {
 	public void setConnectionNumber(Integer connectionNumber) {
 		this.connectionNumber = connectionNumber;
 	}
-	
-	
 }

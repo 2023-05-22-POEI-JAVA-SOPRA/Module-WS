@@ -1,10 +1,8 @@
-package fr.maboite.correction.rest.controller;
+package fr.maboite.correction.rest.controller.TP;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.maboite.correction.jpa.entity.User;
-import fr.maboite.correction.rest.pojo.UserRestDto;
 import fr.maboite.correction.service.UserService;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -13,6 +11,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 /**
  * Rest Controller des User
@@ -24,43 +23,51 @@ public class UserController {
 	private UserService userService = new UserService();
 	
 	@GET
-	public List<UserRestDto> getUsers() {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getUsers() {
 		System.out.println("getUsers est appelée");
 		List<User> users = this.userService.findAll();
-		List<UserRestDto> userDtos = new ArrayList<>();
-		for (User user : users) {
-			UserRestDto userDto = new UserRestDto(user);
-			userDtos.add(userDto);
+		
+		if(users == null || users.stream().count() <= 0)
+		{
+			return Response.status(Response.Status.NOT_FOUND).build();
 		}
-		return userDtos;
-		// Les 6 lignes ci-dessus peuvent être remplacées par :
-		// return users.stream().map(UserRestDto::new).toList();
-
+		
+		return Response.ok(users).build();
 	}
 	
 	@GET
 	@Path("/{id}")
-	public UserRestDto getUsers(@PathParam("id") Integer id) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getUsers(@PathParam("id") Integer id) {
 		System.out.println("getUsers est appelée avec l'id : " + id);
 		User user = this.userService.get(id);
 		if (user == null) {
-			return null;
+			return Response.status(Response.Status.NOT_FOUND).build();
 		}
-		return new UserRestDto(user);
+		return Response.ok(user).build();
 	}
 	
 	@POST
-	public UserRestDto save(UserRestDto userPojo) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response save(User user) {
 		System.out.println("save est appelée");
-		User savedUser = this.userService.save(userPojo.toUser());
-		return new UserRestDto(savedUser);
+		User savedUser = this.userService.save(user);
+		
+		if (savedUser == null || savedUser.getIdUser() <= 0) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+		
+		return Response.ok(user).build();
 	}
 
 	@DELETE
 	@Path("/{id}")
-	public void deleteUsers(@PathParam("id") Integer id) {
+	public Response deleteUsers(@PathParam("id") Integer id) {
 		System.out.println("deleteUsers est appelée avec l'id : " + id);
 		this.userService.delete(id);
+		
+		return Response.ok("Suppression réussi").build();
 	}
 
 }

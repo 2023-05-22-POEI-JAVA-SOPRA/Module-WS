@@ -19,7 +19,14 @@ public class UserService {
 	 * @return
 	 */
 	public User save(User user) {
-		return this.userDao.save(user);
+		
+		if(user.getIdUser() == null)
+		{
+			return this.userDao.save(user);
+		}
+		else {
+			return this.userDao.update(user);
+		}
 	}
 
 	/**

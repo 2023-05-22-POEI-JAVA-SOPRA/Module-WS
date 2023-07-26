@@ -7,6 +7,7 @@ import fr.maboite.correction.jpa.entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
+import jakarta.validation.Valid;
 
 /**
  * DAO (Data Access Object) pour les entités User
@@ -19,12 +20,24 @@ public class UserDao {
 	 * @param user
 	 * @return
 	 */
-	public User save(User user) {
+	public User update(@Valid User user) {
 		EntityManager entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
 		tx.begin();
 		User savedUser = entityManager.merge(user);
 		tx.commit();
+		return savedUser;
+	}
+	
+	public User save(@Valid User user) {
+		EntityManager entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
+		EntityTransaction tx = entityManager.getTransaction();
+		tx.begin();
+		entityManager.persist(user);
+		tx.commit();
+		
+		User savedUser = this.get(user.getLogin());
+		
 		return savedUser;
 	}
 
@@ -37,6 +50,17 @@ public class UserDao {
 	public User get(Integer id) {
 		EntityManager entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
 		return entityManager.find(User.class, id);
+	}
+	
+	/**
+	 * Renvoie le User ayant id, peut renvoyer null.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public User get(String login) {
+		EntityManager entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
+		return (User)entityManager.createQuery("Select u From User u Where login = ?1").setParameter(1, login).getSingleResult();
 	}
 
 	/**
