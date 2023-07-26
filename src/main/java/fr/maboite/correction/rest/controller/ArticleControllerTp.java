@@ -10,6 +10,7 @@ import fr.maboite.correction.jpa.entity.User;
 import fr.maboite.correction.rest.pojo.ArticleRestDto;
 
 import fr.maboite.correction.service.ArticleService;
+import fr.maboite.correction.validator.RequestValidator;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -25,6 +26,7 @@ import jakarta.ws.rs.core.Response.Status;
 public class ArticleControllerTp {
 
 	private ArticleService articleService = new ArticleService();
+	private RequestValidator rq = new RequestValidator();
 
 	@GET
 	public Response getAllArticles() { 
@@ -47,9 +49,8 @@ public class ArticleControllerTp {
 		System.out.println("getArticle est appelée");
 		
 		
-		if (id <= 0) {
-			System.out.println("id must be non negative or equal to 0");
-			return Response.status(Response.Status.NOT_FOUND).entity("{'cause': 'not found id must be non negative or equal to 0'}").type(MediaType.APPLICATION_JSON)/*header("typeOfInputMIME","json").header("typeOfOutputMIME", "json")*/.build();
+		if (!rq.validateId(id)) {
+			return rq.response404();
 		}
 		Article art = this.articleService.get(id);
 		

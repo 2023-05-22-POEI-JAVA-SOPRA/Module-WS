@@ -116,7 +116,7 @@ public class ArtcileDao {
 			EntityManager entityManager = null;
 			try {
 				 entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
-				return entityManager.createQuery("select a from Article a", Article.class).getResultList();
+				return entityManager.createQuery("select a from Article a Order by id", Article.class).getResultList();
 				 
 			
 			} catch (Exception e) {

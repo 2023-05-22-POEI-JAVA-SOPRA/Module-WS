@@ -50,4 +50,12 @@ public class UserService {
 	public List<User> findAll() {
 		return this.userDao.findAll();
 	}
+	/**
+	 * Supprime tous les Users en base de données.
+	 * 
+	 * @return
+	 */
+	public boolean deleteAll() {
+		return this.userDao.deleteAll();
+	}
 }

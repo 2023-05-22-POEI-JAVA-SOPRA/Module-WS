@@ -16,7 +16,7 @@ import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+
 
 @Entity
 @Table(name = "T_Roles")
@@ -60,11 +60,6 @@ public class Role {
 		this.roleName = roleName;
 	}
 
-//	public Role(String roleName, User user)
-//	{
-//		this.setRoleName(roleName);
-//		this.setUser(user);;
-//	}
 
 	public Role(){
 	}
@@ -77,7 +72,6 @@ public class Role {
 	public Role( String roleName, List<User> users) {
 		super();
 		this.roleName = roleName;
-//		this.users = users;
 	}
 
 	

@@ -2,8 +2,6 @@ package fr.maboite.correction.jpa.dao;
 
 import java.util.List;
 
-
-
 import fr.maboite.correction.jpa.EntityManagerFactorySingleton;
 import fr.maboite.correction.jpa.entity.User;
 import jakarta.persistence.EntityManager;
@@ -21,7 +19,7 @@ public class UserDao {
 	 * @return
 	 */
 	public User save(User user) {
-		EntityManager entityManager =null;
+		EntityManager entityManager = null;
 		try {
 			entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
 			EntityTransaction trans = entityManager.getTransaction();
@@ -31,15 +29,13 @@ public class UserDao {
 			return user;
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e);
 			return null;
 		} finally {
 			if (entityManager != null)
 				entityManager.close();
 		}
-		
-		
+
 	}
 
 	/**
@@ -51,8 +47,8 @@ public class UserDao {
 	public User get(Integer id) {
 		EntityManager entityManager = null;
 		try {
-			 entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
-			 return entityManager.find(User.class, id);
+			entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
+			return entityManager.find(User.class, id);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e);
@@ -70,36 +66,30 @@ public class UserDao {
 	 * @param id
 	 */
 	public boolean delete(Integer id) {
-		
-		
+
 		EntityManager entityManager = null;
 		if (id == null) {
 			return false;
 		}
-		System.out.println(" ID "+ id);
 
+		try {
+			entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
+			EntityTransaction trans = entityManager.getTransaction();
+			User user = entityManager.find(User.class, id);
+			trans.begin();
+			entityManager.remove(user);
+			trans.commit();
+			
+			return true;
 
-		// try catch -- error 404
-		
-			try {
-				entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
-				EntityTransaction trans = entityManager.getTransaction();
-				User user = entityManager.find(User.class, id);
-				trans.begin();
-				entityManager.remove(user);
-				trans.commit();
-				return true;
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		} finally {
+			if (entityManager != null)
+				entityManager.close();
+		}
 
-			} catch (Exception e) {
-				System.out.println(e);
-				return false;
-			} finally {
-				if (entityManager != null)
-					entityManager.close();
-			}
-
-		
-		
 	}
 
 	/**
@@ -109,21 +99,46 @@ public class UserDao {
 	 * @return
 	 */
 	public List<User> findAll() {
-		
+
 		EntityManager entityManager = null;
 		try {
-			 entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
-			 return entityManager.createQuery("select u from User u ", User.class).getResultList();
+			entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
+			List<User> result=  entityManager.createQuery("select u from User u Order by id ", User.class).getResultList();
+			if(result.size() > 0)
+			{
+				return result;
+			}
+			 return null;
+			
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e);
 			return null;
+		} finally {
+			if (entityManager != null) {
+				entityManager.close();
+			}
+		}
+	}
+
+	public boolean deleteAll() {
+
+		EntityManager entityManager = null;
+		try {
+			entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
+			EntityTransaction trans = entityManager.getTransaction();
+			trans.begin();
+			entityManager.createQuery("Delete from User").executeUpdate();
+			trans.commit();
+			return true;
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
 		} finally {
 			if (entityManager != null)
 				entityManager.close();
 
 		}
-		
+
 	}
 
 }

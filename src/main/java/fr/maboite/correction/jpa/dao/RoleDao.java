@@ -13,7 +13,6 @@ import jakarta.persistence.EntityTransaction;
  */
 public class RoleDao {
 
-
 	/**
 	 * Sauvegarde (insère ou met à jour) role.
 	 * 
@@ -21,7 +20,7 @@ public class RoleDao {
 	 * @return
 	 */
 	public Role save(Role role) {
-		EntityManager entityManager =null;
+		EntityManager entityManager = null;
 		try {
 			entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
 			EntityTransaction trans = entityManager.getTransaction();
@@ -31,15 +30,14 @@ public class RoleDao {
 			return role;
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e);
 			return null;
 		} finally {
-			if (entityManager != null)
+			if (entityManager != null) {
 				entityManager.close();
+			}
+
 		}
-		
-		
 	}
 
 	/**
@@ -51,7 +49,7 @@ public class RoleDao {
 	public Role get(Integer id) {
 		EntityManager entityManager = null;
 		try {
-			 entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
+			entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
 //			 System.out.println("===============================================");
 //			 System.out.println("===============================================");
 //			 System.out.println("===============================================");
@@ -67,7 +65,7 @@ public class RoleDao {
 //		        for( User associatedUser : role.getUsers() ) {
 //		            System.out.println( associatedUser );
 //		        }
-			 return entityManager.find(Role.class, id);
+			return entityManager.find(Role.class, id);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e);
@@ -85,39 +83,35 @@ public class RoleDao {
 	 * @param id
 	 */
 	public boolean delete(Integer id) {
-		
-		
+
 		EntityManager entityManager = null;
 		if (id == null) {
 			return false;
 		}
-		System.out.println(" ID "+ id);
-
+		System.out.println(" ID " + id);
 
 		// try catch -- error 404
-		
-			try {
-				entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
-				EntityTransaction trans = entityManager.getTransaction();
-				Role role = entityManager.find(Role.class, id);
-				trans.begin();
-				entityManager.remove(role);
-				trans.commit();
-				return true;
 
-			} catch (Exception e) {
-				// TODO: handle exception
-				System.out.println(e);
-				return false;
-			} finally {
-				if (entityManager != null)
-					entityManager.close();
+		try {
+			entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
+			EntityTransaction trans = entityManager.getTransaction();
+			Role role = entityManager.find(Role.class, id);
+			trans.begin();
+			entityManager.remove(role);
+			trans.commit();
+			return true;
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+			return false;
+		} finally {
+			if (entityManager != null)
+				entityManager.close();
 //				if (em != null)
 //					em.close();
-			}
+		}
 
-		
-		
 	}
 
 	/**
@@ -127,11 +121,11 @@ public class RoleDao {
 	 * @return
 	 */
 	public List<Role> findAll() {
-		
+
 		EntityManager entityManager = null;
 		try {
-			 entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
-			 return entityManager.createQuery("select r from Role r ", Role.class).getResultList();
+			entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
+			return entityManager.createQuery("select r from Role r Order by id", Role.class).getResultList();
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e);
@@ -141,9 +135,7 @@ public class RoleDao {
 				entityManager.close();
 
 		}
-		
+
 	}
-	
-	
 
 }

@@ -1,6 +1,7 @@
 package fr.maboite.correction.rest.controller;
 
 import fr.maboite.correction.service.RoleService;
+import fr.maboite.correction.validator.RequestValidator;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.maboite.correction.jpa.entity.Role;
-import fr.maboite.correction.jpa.entity.User;
+
 import fr.maboite.correction.rest.pojo.RoleDto;
 
 @Path("/roles")
@@ -24,7 +25,7 @@ public class RoleController {
 
 	
 	private RoleService roleService = new RoleService();
-	
+	private RequestValidator rq = new RequestValidator();
 	
 	@GET
 	public Response getAllRoles()
@@ -43,11 +44,10 @@ public class RoleController {
 	
 	@GET
 	@Path("/{id}")
-	public Response getUser(@PathParam("id") Integer id) {
-		System.out.println("getUsers est appelée avec l'id : " + id);
-		if (id <= 0) {
-			System.out.println("id must be non negative or equal to 0");
-			return Response.status(Response.Status.NOT_FOUND).entity("{'cause': 'not found id must be non negative or equal to 0'}").type(MediaType.APPLICATION_JSON)/*header("typeOfInputMIME","json").header("typeOfOutputMIME", "json")*/.build();
+	public Response getRole(@PathParam("id") Integer id) {
+		System.out.println("getRole est appelée avec l'id : " + id);
+		if (!rq.validateId(id)) {
+			return rq.response404();
 		}
 		Role role = this.roleService.get(id);
 		if (role == null) {

@@ -12,7 +12,7 @@ import fr.maboite.correction.rest.pojo.ArticleRestDto;
 public class ArticleService {
 	
 	private ArtcileDao artDao = new ArtcileDao();
-	final private List<String> luxeBrands = Arrays.asList("Rolex","Ferrari","Marque repère");
+	final private List<String> LUXE_BRAND = Arrays.asList("Rolex","Ferrari","Marque repère");
 	
 	public Article get(Integer id)
 	{
@@ -25,7 +25,7 @@ public class ArticleService {
 	public boolean validatePrice(ArticleRestDto articlePojo)
 	{
 
-		return (articlePojo.getUnitaryPrice() >= 500 && !isLuxeBrand(articlePojo)) ? false: true;
+		return articlePojo.getUnitaryPrice() >= 500 && !isLuxeBrand(articlePojo);
 	}
 	
 	public Article save(Article art) {
@@ -39,6 +39,6 @@ public class ArticleService {
 	
 	public boolean isLuxeBrand(ArticleRestDto articlePojo)
 	{
-		return luxeBrands.contains(articlePojo.getBrand());
+		return LUXE_BRAND.contains(articlePojo.getBrand());
 	}
 }
