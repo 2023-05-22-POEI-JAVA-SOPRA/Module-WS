@@ -25,6 +25,7 @@ public class UserDao {
 		tx.begin();
 		User savedUser = entityManager.merge(user);
 		tx.commit();
+		entityManager.close();
 		return savedUser;
 	}
 
@@ -36,7 +37,9 @@ public class UserDao {
 	 */
 	public User get(Integer id) {
 		EntityManager entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
-		return entityManager.find(User.class, id);
+		User user = entityManager.find(User.class, id);
+		entityManager.close();
+		return user;
 	}
 
 	/**
@@ -56,7 +59,7 @@ public class UserDao {
 		query.setParameter("id", id);
 		query.executeUpdate();
 		tx.commit();
-
+		entityManager.close();
 	}
 
 	/**
@@ -67,7 +70,9 @@ public class UserDao {
 	 */
 	public List<User> findAll() {
 		EntityManager entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
-		return entityManager.createQuery("select u from User u ", User.class).getResultList();
+		List<User> users = entityManager.createQuery("select u from User u ", User.class).getResultList();
+		entityManager.close();
+		return users;
 	}
 
 }
