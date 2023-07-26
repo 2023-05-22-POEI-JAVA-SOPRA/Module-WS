@@ -101,6 +101,14 @@ public class Article {
 		this.commandLine = commandLine;
 	}
 
+	@Override
+	public String toString() {
+		return "Article [idArticle=" + idArticle + ", description=" + description + ", brand=" + brand
+				+ ", unitaryPrice=" + unitaryPrice + "]";
+	}
+
+	
+
 	
 
 	

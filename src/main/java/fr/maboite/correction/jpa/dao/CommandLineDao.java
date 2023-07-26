@@ -37,8 +37,8 @@ public class CommandLineDao {
 			EntityTransaction tr = em.getTransaction();
 			tr.begin();
 			CommandLine co = em.find(CommandLine.class, id);
-			co.setIdArticle(commandLine.getIdArticle());
-			co.setIdCommand(commandLine.getIdCommand());
+			//co.setIdArticle(commandLine.getIdArticle());
+			//co.setIdCommand(commandLine.getIdCommand());
 			co.setQuantity(commandLine.getQuantity());
 			tr.commit();
 			return true;

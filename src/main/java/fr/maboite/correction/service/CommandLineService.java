@@ -24,5 +24,8 @@ public class CommandLineService {
 	public boolean delete(Integer id) {
 		return commandLineDao.delete(id);
 	}
-
+    public static void main(String[] args) {
+    	 CommandLineService commandLineService = new CommandLineService();
+    	 System.out.println(commandLineService.getById(1));
+	}
 }

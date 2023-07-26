@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
+import fr.maboite.correction.jpa.entity.Article;
+import fr.maboite.correction.jpa.entity.Command;
 import fr.maboite.correction.jpa.entity.CommandLine;
 
 public class CommandLinesTest {
@@ -18,7 +20,9 @@ public class CommandLinesTest {
 	
 	@Test
 	public void getById_CommandLine_with_existing_id() {
-		CommandLine uTest = new CommandLine(9, 1, 20);
+		Command command = new CommandService().getById(9);
+		Article article = new ArticleService().getById(1);
+		CommandLine uTest = new CommandLine(6,article,command,20);
 		assertEquals(uTest, service.getById(6));
 	}
 	

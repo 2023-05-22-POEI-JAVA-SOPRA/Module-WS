@@ -1,6 +1,8 @@
 package fr.maboite.correction.jpa.entity;
 
 
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,14 +21,14 @@ public class CommandLine {
 	
 	private int idCommandLine;
 	
-	@ManyToOne @JoinColumn(name = "id")
+	@ManyToOne @JoinColumn(name = "idArticle")
 	private Article article;
 	
-	@ManyToOne @JoinColumn(name = "id_command")
+	@ManyToOne @JoinColumn(name = "idCommand")
 	private Command command;
 	
-	private int idCommand;
-	private int idArticle;
+	//private int idCommand;
+	//private int idArticle;
 	private int quantity;
 	
 	
@@ -36,28 +38,19 @@ public class CommandLine {
 	public void setIdCommandLine(int idCommandLine) {
 		this.idCommandLine = idCommandLine;
 	}
-	public int getIdCommand() {
-		return idCommand;
-	}
-	public void setIdCommand(int idCommand) {
-		this.idCommand = idCommand;
-	}
-	public int getIdArticle() {
-		return idArticle;
-	}
-	public void setIdArticle(int idArticle) {
-		this.idArticle = idArticle;
-	}
+	
 	public int getQuantity() {
 		return quantity;
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public CommandLine(int idCommand, int idArticle, int quantity) {
+	
+	
+	public CommandLine(Article article, Command command, int quantity) {
 		super();
-		this.idCommand = idCommand;
-		this.idArticle = idArticle;
+		this.article = article;
+		this.command = command;
 		this.quantity = quantity;
 	}
 	public CommandLine() {
@@ -74,6 +67,34 @@ public class CommandLine {
 	}
 	public void setCommand(Command command) {
 		this.command = command;
+	}
+	@Override
+	public String toString() {
+		return "CommandLine [idCommandLine=" + idCommandLine + ", article=" + article + ", command=" + command
+				+ ", quantity=" + quantity + "]";
+	}
+	public CommandLine(int idCommandLine, Article article, Command command, int quantity) {
+		super();
+		this.idCommandLine = idCommandLine;
+		this.article = article;
+		this.command = command;
+		this.quantity = quantity;
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(article, command, idCommandLine, quantity);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CommandLine other = (CommandLine) obj;
+		return Objects.equals(article, other.article) && Objects.equals(command, other.command)
+				&& idCommandLine == other.idCommandLine && quantity == other.quantity;
 	}
 	
 	

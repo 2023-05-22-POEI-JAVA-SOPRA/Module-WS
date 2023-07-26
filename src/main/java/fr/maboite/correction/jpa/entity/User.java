@@ -19,7 +19,6 @@ public class User {
 	@Column(name = "connection_number")
 	private Integer connectionNumber;
 
-
 	public User() {
 		super();
 	}
