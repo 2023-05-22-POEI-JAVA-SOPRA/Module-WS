@@ -1,5 +1,7 @@
 package fr.maboite.correction.jpa.entity;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -65,5 +67,25 @@ public class Article {
 		this.brand = brand;
 		this.unitaryPrice = unitaryPrice;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(brand, description, unitaryPrice);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Article other = (Article) obj;
+		return Objects.equals(brand, other.brand) && Objects.equals(description, other.description)
+				&& Float.floatToIntBits(unitaryPrice) == Float.floatToIntBits(other.unitaryPrice);
+	}
+
+	
 
 }
