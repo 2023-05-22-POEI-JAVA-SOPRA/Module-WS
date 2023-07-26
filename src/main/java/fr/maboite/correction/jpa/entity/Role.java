@@ -73,6 +73,9 @@ public class Role {
 		super();
 		this.roleName = roleName;
 	}
+	public Role( String roleName) {
+		this.roleName = roleName;
+	}
 
 	
 	

@@ -19,24 +19,24 @@ import fr.maboite.correction.jpa.entity.User;
 
 public class UserServiceTest {
 
-	private UserService userService = new UserService();
+	private static  UserService userService;
 
-//	@BeforeAll
-//	public static void befAll() {
-//		//createUsers();
-//		
-//
-//	}
+	@BeforeAll
+	public static void befAll() {
+		 userService = new UserService();
+		createUsers();
+	}
+	
 
-//	public static void createUsers() {
-//
-//		List<User> users = Arrays.asList(new User("Anderson", "Neo", 0), new User("Skywalker", "Luke", 0),
-//				new User("Plissken", "Snake", 0), new User("Ripley", "Ellen", 0), new User("Bond", "James", 0));
-//		for (User user : users) {
-//			userService.save(user);
-//		}
-//	}
-//
+	public static void createUsers() {
+
+		List<User> users = Arrays.asList(new User("Anderson", "Neo", 0), new User("Skywalker", "Luke", 0),
+				new User("Plissken", "Snake", 0), new User("Ripley", "Ellen", 0), new User("Bond", "James", 0));
+		for (User user : users) {
+			userService.save(user);
+		}
+	}
+
 	@ParameterizedTest()
 	@CsvSource(value = { "Login,p@ssWord,0", "Admin,Admin,200", "SuperAdmin,password123,150" }, delimiter = ',')
 	public void test_Save_User(String s1, String s2, Integer connectionNumber) throws Exception {
@@ -92,21 +92,17 @@ public class UserServiceTest {
 
 		List<User> users = userService.findAll();
 		assertNotNull(users);
-		assertTrue("Users list is null", users.size() <= 0);
+		assertTrue("Users list is null", users.size() > 0);
 	}
 
-//	@Test
-//	public void test_delete_all() throws Exception {
-//		
-//			List<User> users = userService.findAll();
-//			
-//			assertNotNull(users);
-//			assertTrue(users.size() >0);
-//			
-//			assertTrue(userService.deleteAll());
-//			assertNull(users);
-//			
-//			
-//	}
+	@Test
+	public void test_delete_all() throws Exception {
+			List<User> users = userService.findAll();
+			assertNotNull(users);
+			assertTrue(users.size() >0);
+			assertTrue(userService.deleteAll());
+			assertNull(userService.findAll());
+			
+	}
 
 }
