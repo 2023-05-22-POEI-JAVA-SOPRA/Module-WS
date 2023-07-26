@@ -8,7 +8,7 @@ public class EntityManagerFactorySingleton {
 	
 	public final static EntityManagerFactorySingleton INSTANCE = new EntityManagerFactorySingleton();
 	
-	private static final String PERSISTENCE_UNIT_NAME = "maConfiguration";
+	private static final String PERSISTENCE_UNIT_NAME = "MaConfiguration";
 	private EntityManagerFactory entityManagerFactory;
 
 	private EntityManagerFactorySingleton() {

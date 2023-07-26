@@ -3,7 +3,7 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
                    http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
-    <persistence-unit transaction-type="RESOURCE_LOCAL" name="persistenceUnit">
+    <persistence-unit transaction-type="RESOURCE_LOCAL" name="MaConfiguration">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
               <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
