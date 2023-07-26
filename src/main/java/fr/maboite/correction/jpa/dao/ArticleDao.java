@@ -22,9 +22,7 @@ public class ArticleDao {
 		tx.begin();
 		Article savedArticle = entityManager.merge(article);
 		tx.commit();
-		if (entityManager != null) {
-			entityManager.close();
-		}
+		entityManager.close();
 		return savedArticle;
 	}
 
@@ -36,9 +34,7 @@ public class ArticleDao {
 	 */
 	public Article get(Integer id) {
 		EntityManager entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();		
-		if (entityManager != null) {
-			entityManager.close();
-		}
+		entityManager.close();
 		return entityManager.find(Article.class, id);
 	}
 
@@ -59,11 +55,7 @@ public class ArticleDao {
 		query.setParameter("idArticle", id);
 		query.executeUpdate();
 		tx.commit();
-		
-		if (entityManager != null) {
-			entityManager.close();
-		}
-
+		entityManager.close();
 	}
 
 	/**
@@ -74,9 +66,7 @@ public class ArticleDao {
 	 */
 	public List<Article> findAll() {
 		EntityManager entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
-		if (entityManager != null) {
-			entityManager.close();
-		}
+		entityManager.close();
 		return entityManager.createQuery("select article from Article article ", Article.class).getResultList();
 	}
 	
