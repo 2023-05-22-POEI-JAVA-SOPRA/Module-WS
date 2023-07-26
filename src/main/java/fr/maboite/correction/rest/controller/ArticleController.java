@@ -51,11 +51,14 @@ public class ArticleController {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void save(@Valid ArticleRestDto articlePojo) {
+	public Response save(@Valid ArticleRestDto articlePojo) {
 		System.out.println("save is called");
 		if(articleService.checkPrice(articlePojo)) {
-			this.articleService.save(articlePojo.toArticle());
+			Article savedArticle = this.articleService.save(articlePojo.toArticle());
+			return Response.ok(new ArticleRestDto(savedArticle)).build();
 		}
+		return Response.status(Response.Status.FORBIDDEN).
+				entity("Le prix doit être inférieur à 500 euros.").type(MediaType.TEXT_PLAIN).build();
 	}
 
 	@DELETE
