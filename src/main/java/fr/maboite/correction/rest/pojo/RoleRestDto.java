@@ -1,10 +1,13 @@
 package fr.maboite.correction.rest.pojo;
 import fr.maboite.correction.jpa.entity.Role;
+import jakarta.validation.constraints.Size;
 
 
 public class RoleRestDto {
 	
 	private Integer idRole;
+	
+    @Size(max = 20, message = "Le name_role ne peut pas dépasser 20 caractères")
 	private String name;
 	
 	public RoleRestDto() {
