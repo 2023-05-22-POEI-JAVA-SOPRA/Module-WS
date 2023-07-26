@@ -27,7 +27,7 @@ public class RoleController {
 	@GET
 	@Path("/{id}")
 	public RoleRestDto getRoles(@PathParam("id") Integer id) {
-		System.out.println("getUsers est appelée avec l'id : " + id);
+		System.out.println("getRoles est appelée avec l'id : " + id);
 		Role role = this.roleService.get(id);
 		if (role == null) {
 			return null;
