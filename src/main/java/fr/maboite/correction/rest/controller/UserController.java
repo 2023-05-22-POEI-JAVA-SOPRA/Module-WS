@@ -49,11 +49,7 @@ public class UserController {
 	
 	@POST
 	public Response create(@Valid UserRestDto urd) {
-		User user = new User(
-				urd.getLogin(),
-				urd.getPassword(),
-				urd.getConnectionNumber()
-				);
+		User user = urd.convertToUser();
 		if (service.create(user)) {
 			return Response.ok("User created", MediaType.TEXT_PLAIN).build();
 		} else {
@@ -67,7 +63,7 @@ public class UserController {
 		if (service.update(u , id)) {
 			return Response.ok("User updated").build();
 		} else {
-			return Response.status(Status.NOT_FOUND).entity("User not found").type(MediaType.TEXT_PLAIN).build();
+			return Response.status(Status.NOT_FOUND).entity("User not updated").type(MediaType.TEXT_PLAIN).build();
 
 		}
 	}
@@ -77,7 +73,7 @@ public class UserController {
 		if (service.delete(id)) {
 			return Response.ok("User deleted").build();
 		} else {
-			return Response.status(Status.NOT_FOUND).entity("User not found").type(MediaType.TEXT_PLAIN).build();
+			return Response.status(Status.NOT_FOUND).entity("User not deleted").type(MediaType.TEXT_PLAIN).build();
 
 		}
 	}

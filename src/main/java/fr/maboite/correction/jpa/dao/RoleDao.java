@@ -16,7 +16,7 @@ public class RoleDao {
     private EntityManager em = null;
 
     public RoleDao() {
-        emf = Persistence.createEntityManagerFactory("maConfiguration");
+        emf = Persistence.createEntityManagerFactory("persistenceUnit");
         em = emf.createEntityManager();
     }
 
