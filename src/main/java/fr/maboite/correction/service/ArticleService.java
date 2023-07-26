@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.maboite.correction.jpa.dao.ArticleDao;
 import fr.maboite.correction.jpa.entity.Article;
+import fr.maboite.correction.rest.pojo.ArticleRestDto;
 
 public class ArticleService {
 
@@ -45,6 +46,17 @@ public class ArticleService {
 	 */
 	public List<Article> findAll() {
 		return this.articleDao.findAll();
+	}
+	
+	public boolean checkPrice(ArticleRestDto articleRestDto) {
+		String brand = articleRestDto.getBrand();
+		double unitaryPrice = articleRestDto.getUnitaryPrice();
+		if(unitaryPrice>500) {
+			if (!(brand.equals("Rolex") || brand.equals("Ferrari")) || brand.equals("Marque repère")) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 }
