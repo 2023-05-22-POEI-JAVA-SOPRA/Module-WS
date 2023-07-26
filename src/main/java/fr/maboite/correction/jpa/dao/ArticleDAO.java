@@ -3,6 +3,7 @@ package fr.maboite.correction.jpa.dao;
 import java.util.List;
 
 import fr.maboite.correction.jpa.EntityManagerFactorySingleton;
+import fr.maboite.correction.jpa.entity.Article;
 import fr.maboite.correction.jpa.entity.Articles;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -16,12 +17,12 @@ public class ArticleDAO {
 	 * 
 	 * @return
 	 */
-	public List<Articles> findAll() {
+	public List<Article> findAll() {
 		EntityManager entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
-		return entityManager.createQuery("select a from Articles a ", Articles.class).getResultList();
+		return entityManager.createQuery("select a from Articles a ", Article.class).getResultList();
 	}
 	
-	public Articles save(@Valid Articles article) {
+	public Article save(@Valid Article article) {
 		
 		EntityManager entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
@@ -29,7 +30,7 @@ public class ArticleDAO {
 		entityManager.persist(article);
 		tx.commit();
 		
-		Articles savedArticle = this.get(article.getDescription());
+		Article savedArticle = this.get(article.getDescription());
 		
 		return savedArticle;
 		
@@ -41,9 +42,9 @@ public class ArticleDAO {
 	 * @param id
 	 * @return
 	 */
-	public Articles get(Integer id) {
+	public Article get(Integer id) {
 		EntityManager entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
-		return entityManager.find(Articles.class, id);
+		return entityManager.find(Article.class, id);
 	}
 	
 	/**
@@ -52,9 +53,9 @@ public class ArticleDAO {
 	 * @param id
 	 * @return
 	 */
-	public Articles get(String description) {
+	public Article get(String description) {
 		EntityManager entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
-		return (Articles)entityManager.createQuery("Select a From Articles a Where description = ?1").setParameter(1, description).getSingleResult();
+		return (Article)entityManager.createQuery("Select a From Articles a Where description = ?1").setParameter(1, description).getSingleResult();
 	}
 	
 }

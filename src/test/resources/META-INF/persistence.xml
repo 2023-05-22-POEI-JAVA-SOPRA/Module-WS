@@ -12,15 +12,15 @@
 	<persistence-unit transaction-type="RESOURCE_LOCAL"
 		name="persistenceUnit">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		
+
 		<class>fr.maboite.correction.jpa.entity.User</class>
+		<class>fr.maboite.correction.jpa.entity.Role</class>
 
 		<properties>
-			<property name="javax.persistence.jdbc.driver"
-				value="org.h2.Driver" />
-			<property name="javax.persistence.jdbc.url"
-				value="jdbc:h2:~/h2-data/WebStore" />
-			<property name="javax.persistence.jdbc.user" value="sa" />
+		 <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+		      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/WebShop?useSSL=false&amp;serverTimezone=UTC"/>
+		      <property name="javax.persistence.jdbc.user" value="postgres"/>
+		      <property name="javax.persistence.jdbc.password" value="root"/>
 
 			<!-- DDL change options -->
 			<property

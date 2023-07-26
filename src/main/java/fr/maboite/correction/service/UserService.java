@@ -43,9 +43,10 @@ public class UserService {
 	 * Supprime l'user avec l'id id
 	 * 
 	 * @param id
+	 * @return
 	 */
-	public void delete(Integer id) {
-		this.userDao.delete(id);
+	public boolean delete(Integer id) {
+		return this.userDao.delete(id);
 	}
 
 	/**
@@ -55,5 +56,13 @@ public class UserService {
 	 */
 	public List<User> findAll() {
 		return this.userDao.findAll();
+	}
+	/**
+	 * Supprime tous les Users en base de données.
+	 * 
+	 * @return
+	 */
+	public boolean deleteAll() {
+		return this.userDao.deleteAll();
 	}
 }

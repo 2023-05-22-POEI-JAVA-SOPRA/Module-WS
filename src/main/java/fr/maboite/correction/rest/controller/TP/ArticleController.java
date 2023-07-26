@@ -2,6 +2,7 @@ package fr.maboite.correction.rest.controller.TP;
 
 import java.util.List;
 
+import fr.maboite.correction.jpa.entity.Article;
 import fr.maboite.correction.jpa.entity.Articles;
 import fr.maboite.correction.service.ArticlesService;
 import jakarta.ws.rs.GET;
@@ -22,7 +23,7 @@ public class ArticleController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getArticles() {
 		System.out.println("getUsers est appelée");
-		List<Articles> articles = this.articleService.findAll();
+		List<Article> articles = this.articleService.findAll();
 		
 		if(articles == null || articles.stream().count() < 0)
 		{
@@ -37,7 +38,7 @@ public class ArticleController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getUsers(@PathParam("id") Integer id) {
 		System.out.println("getUsers est appelée avec l'id : " + id);
-		Articles article = this.articleService.getById(id);
+		Article article = this.articleService.getById(id);
 		if (article == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
@@ -47,11 +48,11 @@ public class ArticleController {
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response save(Articles article) {
+	public Response save(Article article) {
 		System.out.println("save est appelée");
-		Articles savedArticles = this.articleService.save(article);
+		Article savedArticles = this.articleService.save(article);
 		
-		if(savedArticles == null || savedArticles.getId() <= 0 )
+		if(savedArticles == null || savedArticles.getIdArticle() <= 0 )
 		{
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}

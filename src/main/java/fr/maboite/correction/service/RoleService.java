@@ -2,36 +2,35 @@ package fr.maboite.correction.service;
 
 import java.util.List;
 
-import fr.maboite.correction.jpa.dao.RoleDAO;
+import fr.maboite.correction.jpa.dao.RoleDao;
+import fr.maboite.correction.jpa.entity.Role;
 import fr.maboite.correction.jpa.entity.Roles;
 
 public class RoleService {
 	
-	private RoleDAO roleDao = new RoleDAO();
-
-	/**
-	 * Sauvegarde (insère ou met à jour) user.
-	 * 
-	 * @param user
-	 * @return
-	 */
-	public Roles save(Roles role) {
-		if(role.getId() == null)
-		{
-			return this.roleDao.save(role);
-		}
-		else return null;
-		
-	}
+	private RoleDao roleDao = new RoleDao();
 
 	/**
 	 * Renvoie le User ayant id, peut renvoyer null.
+=======
+import fr.maboite.correction.jpa.dao.RoleDao;
+import fr.maboite.correction.jpa.entity.Role;
+
+
+public class RoleService {
+	
+	private RoleDao roleDao = new RoleDao();
+	
+	
+	/**
+	 * Renvoie le Role ayant id, peut renvoyer null.
 	 * 
 	 * @param id
 	 * @return
 	 */
-	public Roles get(Integer id) {
-		return this.roleDao.getById(id);
+
+	public Role get(Integer id) {
+		return this.roleDao.get(id);
 	}
 
 	/**
@@ -39,8 +38,18 @@ public class RoleService {
 	 * 
 	 * @return
 	 */
-	public List<Roles> findAll() {
-		return this.roleDao.getAll();
+	public List<Role> findAll() {
+		return this.roleDao.findAll();
 	}
 	
+	
+	/**
+	 * Sauvegarde (insère ou met à jour) role.
+	 * 
+	 * @param role
+	 * @return
+	 */
+	public Role save(Role role) {
+		return this.roleDao.save(role);
+	}
 }

@@ -1,5 +1,4 @@
 package fr.maboite.correction.validator;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 

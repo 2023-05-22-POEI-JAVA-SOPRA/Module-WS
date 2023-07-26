@@ -2,6 +2,7 @@ package fr.maboite.correction.validator;
 
 import java.util.Arrays;
 
+import fr.maboite.correction.jpa.entity.Article;
 import fr.maboite.correction.jpa.entity.Articles;
 import fr.maboite.correction.jpa.entity.CommandeLine;
 import fr.maboite.correction.service.ArticlesService;
@@ -24,7 +25,7 @@ public class CheckCommandeLinePriceValidator implements ConstraintValidator<Chec
             return true; // Validation will be skipped for null values
         }
         
-        Articles a = as.getById(commandeLine.getIdArticle());
+        Article a = as.getById(commandeLine.getIdArticle());
         
         Double prixCommandeLine = a.getUnitaryPrice() * Double.parseDouble(String.valueOf(commandeLine.getQuantity()));
         
