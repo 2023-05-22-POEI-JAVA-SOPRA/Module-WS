@@ -47,7 +47,7 @@ public class ArticleDao {
 	}
 
 	/**
-	 * Renvoie tous les users en base de données. Ne devrait pas être codé en
+	 * Renvoie tous les articles en base de données. Ne devrait pas être codé en
 	 * production : il faut toujours paginer ou filtrer les données.
 	 * 
 	 * @return
