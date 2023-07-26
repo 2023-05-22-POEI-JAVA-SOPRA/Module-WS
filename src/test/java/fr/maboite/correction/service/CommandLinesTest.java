@@ -18,8 +18,8 @@ public class CommandLinesTest {
 	
 	@Test
 	public void getById_CommandLine_with_existing_id() {
-		CommandLine uTest = new CommandLine(1, 1, 20);
-		assertEquals(uTest, service.getById(1));
+		CommandLine uTest = new CommandLine(9, 1, 20);
+		assertEquals(uTest, service.getById(6));
 	}
 	
 

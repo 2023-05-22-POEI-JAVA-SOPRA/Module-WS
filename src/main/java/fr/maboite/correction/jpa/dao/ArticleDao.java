@@ -29,15 +29,6 @@ public class ArticleDao {
 		}
 	}
 
-	/*
-	 * public List<Article> getAll() { try { emf =
-	 * Persistence.createEntityManagerFactory(configName); em =
-	 * emf.createEntityManager(); return
-	 * em.createQuery("From Article").getResultList(); } catch (Exception e) {
-	 * e.printStackTrace(); return null; } finally { if (emf != null) emf.close();
-	 * if (em != null) em.close(); } }
-	 */
-
 	public boolean update(Article article, Integer id) {
 		try {
 			emf = Persistence.createEntityManagerFactory(configName);
