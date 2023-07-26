@@ -2,8 +2,8 @@ package fr.maboite.correction.jpa.entity;
 
 import java.sql.Date;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,8 +13,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 @Entity @Table(name = "command")
 public class Command {
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) 
-	@Column(name = "id_command")
+	@Id @Column(name = "id_command")
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private Integer idCommand;
 	@ManyToOne @JoinColumn(name = "id_user")
 	private User user;
@@ -33,7 +33,8 @@ public class Command {
 		this.commandDate = commandDate;
 	}
 	
-	
+
+
 	public Integer getIdCommand() {
 		return idCommand;
 	}
