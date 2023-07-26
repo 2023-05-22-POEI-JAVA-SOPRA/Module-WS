@@ -4,7 +4,7 @@ import java.util.List;
 
 import fr.maboite.correction.jpa.EntityManagerFactorySingleton;
 import fr.maboite.correction.jpa.entity.Command;
-import fr.maboite.correction.jpa.entity.User;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -45,7 +45,10 @@ public class CommandDao {
 	
 	public Command get(Integer id) {
 		EntityManager entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
-		return entityManager.find(Command.class, id);
+		
+		Command command =  entityManager.find(Command.class, id);
+		entityManager.close();
+		return command;
 	}
 	
 	public void delete(Integer id) {
@@ -60,18 +63,21 @@ public class CommandDao {
 		query.setParameter("id", id);
 		query.executeUpdate();
 		tx.commit();
+		entityManager.close();
 
 	}
 	
 	public List<Command> findAll() {
 		EntityManager entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
 		List<Command> commands = entityManager.createQuery("From Command").getResultList();
+		entityManager.close();
 		return commands;
 	}
 	
 	public List<Command> findAllByUserId(Integer id) {
 		EntityManager entityManager = EntityManagerFactorySingleton.INSTANCE.getEntityManager();
 		List<Command> commandsUser = entityManager.createQuery("select c from Command c where c.id = :id ").getResultList();
+		entityManager.close();
 		return commandsUser;
 	}
 

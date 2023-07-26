@@ -7,7 +7,7 @@ public class CommandPojo {
 	
 	private Integer idCommand;
 	
-	private UserRestDto idUser;
+	private UserRestDto user;
 	
 	private LocalDateTime commandDate;
 	
@@ -20,12 +20,12 @@ public class CommandPojo {
 		this.idCommand = idCommand;
 	}
 
-	public UserRestDto getIdUser() {
-		return idUser;
+	public UserRestDto getUser() {
+		return user;
 	}
 
-	public void setIdUser(UserRestDto idUser) {
-		this.idUser = idUser;
+	public void setUser(UserRestDto user) {
+		this.user = user;
 	}
 
 	public LocalDateTime getCommandDate() {

@@ -19,6 +19,8 @@ public class User {
 	private String password;
 	
 	private Integer connectionNumber;
+	
+	
 
 	public Integer getIdUser() {
 		return idUser;

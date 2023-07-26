@@ -4,25 +4,24 @@ import java.time.LocalDateTime;
 
 import fr.maboite.correction.jpa.entity.Command;
 import fr.maboite.correction.jpa.entity.User;
+import fr.maboite.correction.service.UserService;
 
-public class CommandRestDto {
+public class CommandRestDto2 {
 
 	private Integer idCommand;
 
-	private User user;
+	private Integer idUser;
 
 	private LocalDateTime commandDate;
-	
-	
 
-	public CommandRestDto() {
+	public CommandRestDto2() {
 		
 	}
 
-	public CommandRestDto(Command command) {
+	public CommandRestDto2(Command command) {
 		
 		this.idCommand = command.getIdCommand();
-		this.user = command.getUser();
+		this.idUser = command.getUser().getIdUser();
 		this.commandDate = command.getCommandDate();
 	}
 
@@ -34,12 +33,12 @@ public class CommandRestDto {
 		this.idCommand = idCommand;
 	}
 
-	public User getUser() {
-		return user;
+	public int getIdUser() {
+		return idUser;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setIdUser(Integer idUser) {
+		this.idUser = idUser;
 	}
 
 	public LocalDateTime getCommandDate() {
@@ -49,18 +48,18 @@ public class CommandRestDto {
 	public void setCommandDate(LocalDateTime commandDate) {
 		this.commandDate = commandDate;
 	}
-	
+
 	public Command toCommand() {
+
+		Command command = new Command();
+		UserService userService = new UserService();
+		User user = userService.get(idUser);
 		
-		Command command =  new Command();
 		command.setCommandDate(this.commandDate);
 		command.setIdCommand(this.idCommand);
-		command.setUser(this.user);
-		
+		command.setUser(user);
+
 		return command;
 	}
-	
-	
-	
 
 }

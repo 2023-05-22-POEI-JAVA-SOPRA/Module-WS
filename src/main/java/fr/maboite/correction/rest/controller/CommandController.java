@@ -5,7 +5,9 @@ import java.util.List;
 
 import fr.maboite.correction.jpa.entity.Command;
 import fr.maboite.correction.rest.pojo.CommandRestDto;
+import fr.maboite.correction.rest.pojo.CommandRestDto2;
 import fr.maboite.correction.service.CommandService;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -21,12 +23,12 @@ public class CommandController {
 	private CommandService commandService = new CommandService();
 	
 	@GET
-	public List<CommandRestDto> getCommands(){
+	public List<CommandRestDto2> getCommands(){
 		System.out.println("getcommands est appelé ");
 		List<Command> commands = this.commandService.findAll();
-		List<CommandRestDto> commandsDto = new ArrayList<CommandRestDto>();
+		List<CommandRestDto2> commandsDto = new ArrayList<>();
 		for(Command command:commands) {
-			CommandRestDto commandRestDto = new CommandRestDto(command);
+			CommandRestDto2 commandRestDto = new CommandRestDto2(command);
 			commandsDto.add(commandRestDto);
 		}
 		return commandsDto;
@@ -43,11 +45,20 @@ public class CommandController {
 		return new CommandRestDto(command);
 	}
 	
+//	@POST
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	public CommandRestDto save(CommandRestDto commandPojoDto) {
+//		System.out.println("save est appelée");
+//		Command savedCommand = this.commandService.save(commandPojoDto.toCommand());
+//		return new CommandRestDto(savedCommand);
+//	}
+	
 	@POST
-	public CommandRestDto save(CommandRestDto commandPojoDto) {
-		System.out.println("save est appelée");
+	@Consumes(MediaType.APPLICATION_JSON)
+	public CommandRestDto2 save(CommandRestDto2 commandPojoDto) {
+		System.out.println("save est appelée 2");
 		Command savedCommand = this.commandService.save(commandPojoDto.toCommand());
-		return new CommandRestDto(savedCommand);
+		return new CommandRestDto2(savedCommand);
 	}
 	
 	@DELETE

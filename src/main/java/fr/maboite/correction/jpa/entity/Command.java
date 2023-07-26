@@ -24,7 +24,7 @@ public class Command {
 	
 	@ManyToOne
 	@JoinColumn(name="idUser")
-	private User idUser;
+	private User user;
 	
 	private LocalDateTime commandDate;
 	
@@ -34,9 +34,9 @@ public class Command {
 		
 	}
 
-	public Command(Integer idCommand, User idUser, LocalDateTime commandDate) {
+	public Command(Integer idCommand, User user, LocalDateTime commandDate) {
 		this.idCommand = idCommand;
-		this.idUser = idUser;
+		this.user = user;
 		this.commandDate = commandDate;
 	}
 
@@ -48,12 +48,12 @@ public class Command {
 		this.idCommand = idCommand;
 	}
 
-	public User getIdUser() {
-		return idUser;
+	public User getUser() {
+		return user;
 	}
 
-	public void setIdUser(User idUser) {
-		this.idUser = idUser;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public LocalDateTime getCommandDate() {
