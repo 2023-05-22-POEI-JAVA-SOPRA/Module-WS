@@ -2,6 +2,7 @@ package fr.maboite.correction.jpa.entity;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -61,6 +62,27 @@ public class Command {
 	public String toString() {
 		return "Command [idCommand=" + idCommand + ", user=" + user + ", commandDate=" + commandDate + "]";
 	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(commandDate, commandLines, idCommand, user);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Command other = (Command) obj;
+		return Objects.equals(commandDate, other.commandDate) && Objects.equals(commandLines, other.commandLines)
+				&& Objects.equals(idCommand, other.idCommand) && Objects.equals(user, other.user);
+	}
+	
 	
 	
 }
