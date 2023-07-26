@@ -2,8 +2,8 @@ package fr.maboite.correction.jpa.entity;
 
 import java.sql.Date;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

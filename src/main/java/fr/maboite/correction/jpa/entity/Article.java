@@ -1,5 +1,6 @@
 package fr.maboite.correction.jpa.entity;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -7,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,6 +27,10 @@ public class Article {
 	private String brand;
 
 	private float unitaryPrice;
+	
+	@OneToMany (mappedBy = "article")
+	private List<CommandLine> commandLine;
+	
 
 	public int getIdArticle() {
 		return idArticle;
@@ -85,6 +92,16 @@ public class Article {
 		return Objects.equals(brand, other.brand) && Objects.equals(description, other.description)
 				&& Float.floatToIntBits(unitaryPrice) == Float.floatToIntBits(other.unitaryPrice);
 	}
+
+	public List<CommandLine> getCommandLine() {
+		return commandLine;
+	}
+
+	public void setCommandLine(List<CommandLine> commandLine) {
+		this.commandLine = commandLine;
+	}
+
+	
 
 	
 

@@ -1,9 +1,12 @@
 package fr.maboite.correction.jpa.entity;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,6 +18,13 @@ public class CommandLine {
 
 	
 	private int idCommandLine;
+	
+	@ManyToOne @JoinColumn(name = "id")
+	private Article article;
+	
+	@ManyToOne @JoinColumn(name = "id_command")
+	private Command command;
+	
 	private int idCommand;
 	private int idArticle;
 	private int quantity;
@@ -53,6 +63,19 @@ public class CommandLine {
 	public CommandLine() {
 		super();
 	}
+	public Article getArticle() {
+		return article;
+	}
+	public void setArticle(Article article) {
+		this.article = article;
+	}
+	public Command getCommand() {
+		return command;
+	}
+	public void setCommand(Command command) {
+		this.command = command;
+	}
+	
 	
 	
 }
