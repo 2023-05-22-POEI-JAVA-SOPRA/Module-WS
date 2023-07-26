@@ -23,7 +23,7 @@ public class ArticleController {
 	@GET
 	public String Premethode(@PathParam("idArticle") Integer id) {
 		System.out.println(id);
-		return "article est appele";
+		return " article est appele " ;
 
 	}
 	
