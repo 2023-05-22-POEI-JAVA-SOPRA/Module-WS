@@ -1,7 +1,5 @@
 package fr.maboite.correction.service;
 
-import java.util.List;
-
 import fr.maboite.correction.jpa.dao.ArticleDao;
 import fr.maboite.correction.jpa.entity.Article;
 
@@ -9,45 +7,24 @@ public class ArticleService {
 
 	private ArticleDao articleDao = new ArticleDao();
 
-	/**
-	 * Sauvegarde (insère ou met à jour) user.
-	 * 
-	 * @param user
-	 * @return
-	 */
-
-	public Article save(Article article) {
-		return this.articleDao.save(article);
+	public Article getById(Integer id) {
+		return articleDao.getById(id);
 	}
 
-	/**
-	 * Renvoie le Article ayant id, peut renvoyer null.
-	 * 
-	 * @param id
-	 * @return
+	/*
+	 * public List<Article> getAll() { return articleDao.getAll(); }
 	 */
 
-	public Article get(Integer idArticle) {
-		return this.articleDao.get(idArticle);
+	public boolean create(Article article) {
+		return articleDao.create(article);
 	}
 
-	/**
-	 * Supprime l'Article avec l'id 
-	 * 
-	 * @param id
-	 */
-
-	public void delete(Integer idArticle) {
-		this.articleDao.delete(idArticle);
+	public boolean update(Article article, Integer id) {
+		return articleDao.update(article, id);
 	}
 
-	/**
-	 * Renvoie tous les Articles en base de données.
-	 * 
-	 * @return
-	 */
-	public List<Article> findAll() {
-		return this.articleDao.findAll();
+	public boolean delete(Integer id) {
+		return articleDao.delete(id);
 	}
 
 }
