@@ -16,15 +16,7 @@
 
 		<properties>
               <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-<<<<<<< HEAD
 		      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/WebShop"/>
-=======
-<<<<<<< HEAD
-		      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/web_shop"/>
-=======
-		      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/User"/>
->>>>>>> 8e2aaaa71283d41ce9cc820e8cb6b443e51f6747
->>>>>>> d6da892b6cbbfbc94547283e111b539f0a2ca636
 		      <property name="javax.persistence.jdbc.user" value="postgres"/>
 		      <property name="javax.persistence.jdbc.password" value="1234"/>
 		</properties> 
