@@ -15,6 +15,7 @@ public class ArticlePojo {
 	@Size(max = 30, message="tu as fait une erreur")
 	private String brand;
 	
+	
 	private float unitaryPrice;
 	
 	
