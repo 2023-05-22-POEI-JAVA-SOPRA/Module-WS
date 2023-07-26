@@ -51,17 +51,21 @@ public class ArticleController {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ArticleRestDto save(@Valid ArticleRestDto articlePojo) {
+	public Response save(@Valid ArticleRestDto articlePojo) {
 		System.out.println("save is called");
-		Article savedArticle = this.articleService.save(articlePojo.toArticle());
-		return new ArticleRestDto(savedArticle);
+		if(articleService.checkPrice(articlePojo)) {
+			Article savedArticle = this.articleService.save(articlePojo.toArticle());
+			return Response.ok(new ArticleRestDto(savedArticle)).build();
+		}
+		return Response.status(Response.Status.FORBIDDEN).
+				entity("Le prix doit être inférieur à 500 euros.").type(MediaType.TEXT_PLAIN).build();
 	}
 
 	@DELETE
-	@Path("/{id}")
-	public void deleteArticles(@PathParam("id") Integer id) {
+	@Path("/{idArticle}")
+	public void deleteArticles(@PathParam("idArticle") Integer id) {
 		System.out.println("delete called with Id : "+id);
 		this.articleService.delete(id);
 	}
-
+	
 }
