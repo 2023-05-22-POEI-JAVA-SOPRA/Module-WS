@@ -1,5 +1,7 @@
 package fr.maboite.correction.jpa.entity;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +27,17 @@ public class User {
 
 	public User(String login, String password, Integer connectionNumber) {
 		super();
+		this.login = login;
+		this.password = password;
+		this.connectionNumber = connectionNumber;
+	}
+
+	
+	
+
+	public User(Integer idUser, String login, String password, Integer connectionNumber) {
+		super();
+		this.idUser = idUser;
 		this.login = login;
 		this.password = password;
 		this.connectionNumber = connectionNumber;
@@ -76,4 +89,20 @@ public class User {
 		return "User [idUser=" + idUser + ", login=" + login + ", password=" + password + ", connectionNumber="
 				+ connectionNumber + "]\n";
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(connectionNumber, other.connectionNumber) && Objects.equals(idUser, other.idUser)
+				&& Objects.equals(login, other.login) && Objects.equals(password, other.password);
+	}
+	
+	
 }
