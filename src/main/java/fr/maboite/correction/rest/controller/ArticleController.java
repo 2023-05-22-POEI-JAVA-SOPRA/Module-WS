@@ -51,15 +51,16 @@ public class ArticleController {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ArticleRestDto save(@Valid ArticleRestDto articlePojo) {
+	public void save(@Valid ArticleRestDto articlePojo) {
 		System.out.println("save is called");
-		Article savedArticle = this.articleService.save(articlePojo.toArticle());
-		return new ArticleRestDto(savedArticle);
+		if(articleService.checkPrice(articlePojo)) {
+			this.articleService.save(articlePojo.toArticle());
+		}
 	}
 
 	@DELETE
-	@Path("/{id}")
-	public void deleteArticles(@PathParam("id") Integer id) {
+	@Path("/{idArticle}")
+	public void deleteArticles(@PathParam("idArticle") Integer id) {
 		System.out.println("delete called with Id : "+id);
 		this.articleService.delete(id);
 	}
