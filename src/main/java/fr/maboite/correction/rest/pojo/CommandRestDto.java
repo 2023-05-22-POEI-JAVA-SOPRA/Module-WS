@@ -1,6 +1,8 @@
 package fr.maboite.correction.rest.pojo;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.maboite.correction.jpa.entity.Command;
 import fr.maboite.correction.jpa.entity.User;
@@ -8,7 +10,7 @@ import fr.maboite.correction.jpa.entity.User;
 
 public class CommandRestDto {
 	private Integer idCommand;
-	private User user;
+	private UserRestDto userRestDto;
 	private Date commandDate;
 	
 	
@@ -17,19 +19,19 @@ public class CommandRestDto {
 	}
 
 
-	public CommandRestDto(User user, Date commandDate) {
+	public CommandRestDto(UserRestDto userRestDto, Date commandDate) {
 		super();
-		this.user = user;
+		this.userRestDto = userRestDto;
 		this.commandDate = commandDate;
 	}
 	
 	public CommandRestDto(Command command) {
-		user = command.getUser();
+		userRestDto = new UserRestDto(command.getUser());
 		commandDate = command.getCommandDate();
 	}
 
 	public Command convertToCommand() {
-		return new Command(user, commandDate);
+		return new Command(userRestDto.convertToUser(), commandDate);
 	}
 	
 
@@ -38,8 +40,8 @@ public class CommandRestDto {
 	}
 
 
-	public User getUser() {
-		return user;
+	public UserRestDto getUserRestDto() {
+		return userRestDto;
 	}
 
 
@@ -53,8 +55,8 @@ public class CommandRestDto {
 	}
 
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserRestDto(UserRestDto userRestDto) {
+		this.userRestDto = userRestDto;
 	}
 
 
@@ -62,6 +64,13 @@ public class CommandRestDto {
 		this.commandDate = commandDate;
 	}
 	
+	public static List<CommandRestDto> commandsToCommandsRestDtos(List<Command> commands) {
+		List<CommandRestDto> list = new ArrayList<CommandRestDto>();
+		for (Command command : commands) {
+			list.add(new CommandRestDto(command));
+		}
+		return list;
+	}
 	
 	
 	
