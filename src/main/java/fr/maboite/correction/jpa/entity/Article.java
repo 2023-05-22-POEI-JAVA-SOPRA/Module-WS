@@ -1,29 +1,27 @@
-package fr.maboite.correction.rest.pojo;
+package fr.maboite.correction.jpa.entity;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-public class ArticlePojo {
-	
-	@Positive
+@Entity @Table(name = "T_Articles")
+public class Article {
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idArticle;
 	
-	@NotEmpty @Size(max=30)
 	String description;
 	
-	@NotEmpty @Size(max=30)
 	String brand;
 	
-	@NotEmpty
 	double unitaryPrice;
 
-
-	public ArticlePojo() {
+	public Article() {
 		super();
 	}
 
-	public ArticlePojo(Integer idArticle, String description, String brand, double unitaryPrice) {
+	public Article(Integer idArticle, String description, String brand, double unitaryPrice) {
 		super();
 		this.idArticle = idArticle;
 		this.description = description;
@@ -62,9 +60,5 @@ public class ArticlePojo {
 	public void setUnitaryPrice(double unitaryPrice) {
 		this.unitaryPrice = unitaryPrice;
 	}
-
-	@Override
-	public String toString() {
-		return "Article [description=" + description + ", brand=" + brand + ", unitaryPrice=" + unitaryPrice + "]";
-	}
+	
 }

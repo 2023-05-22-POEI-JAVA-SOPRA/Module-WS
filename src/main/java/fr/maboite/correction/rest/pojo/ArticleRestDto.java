@@ -1,34 +1,36 @@
 package fr.maboite.correction.rest.pojo;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import fr.maboite.correction.jpa.entity.Article;
 
-public class ArticlePojo {
-	
-	@Positive
+public class ArticleRestDto {
+
 	private Integer idArticle;
 	
-	@NotEmpty @Size(max=30)
 	String description;
 	
-	@NotEmpty @Size(max=30)
 	String brand;
 	
-	@NotEmpty
 	double unitaryPrice;
 
-
-	public ArticlePojo() {
+	public ArticleRestDto() {
 		super();
 	}
 
-	public ArticlePojo(Integer idArticle, String description, String brand, double unitaryPrice) {
+	public ArticleRestDto(Article article) {
 		super();
-		this.idArticle = idArticle;
-		this.description = description;
-		this.brand = brand;
-		this.unitaryPrice = unitaryPrice;
+		this.idArticle = article.getIdArticle();
+		this.description = article.getDescription();
+		this.brand = article.getBrand();
+		this.unitaryPrice = article.getUnitaryPrice();
+	}
+	
+	public Article toArticle() {
+		Article article = new Article();
+		article.setIdArticle(this.idArticle);
+		article.setDescription(this.description);
+		article.setBrand(this.brand);
+		article.setUnitaryPrice(this.unitaryPrice);
+		return article;
 	}
 
 	public Integer getIdArticle() {
@@ -62,9 +64,5 @@ public class ArticlePojo {
 	public void setUnitaryPrice(double unitaryPrice) {
 		this.unitaryPrice = unitaryPrice;
 	}
-
-	@Override
-	public String toString() {
-		return "Article [description=" + description + ", brand=" + brand + ", unitaryPrice=" + unitaryPrice + "]";
-	}
+	
 }

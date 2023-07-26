@@ -1,8 +1,13 @@
 package fr.maboite.correction.rest.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+import fr.maboite.correction.jpa.entity.Article;
 import fr.maboite.correction.rest.pojo.ArticlePojo;
+import fr.maboite.correction.rest.pojo.ArticleRestDto;
+import fr.maboite.correction.service.ArticleService;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -18,55 +23,45 @@ import jakarta.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class ArticleController {
 	
-	@GET
-	public String getArticles() { 
-		System.out.println("getArticles est appelée");
-		return "Voici de beaux articles";
-	}
+	private ArticleService articleService = new ArticleService();
+	
 	
 	@GET
-	@Path("/{id}")
-	public Response getArticles(@PathParam("id") Integer id) {
-		System.out.println("getArticles est appelée avec l'id : " + id);
-		if (id < 0) {
-			return Response.status(Response.Status.NOT_FOUND)
-					.build();
+	public List<ArticleRestDto> getArticles() {
+		System.out.println("getArticles called");
+		List<Article> articles = this.articleService.findAll();
+		List<ArticleRestDto> articleDtos = new ArrayList<ArticleRestDto>();
+		for (Article article:articles) {
+			ArticleRestDto articleDto = new ArticleRestDto(article);
+			articleDtos.add(articleDto);
 		}
-
-		ArticlePojo articlePojo = new ArticlePojo();
-		articlePojo.setId(id);
-		articlePojo.setNom("Article avec l'id : " + id);
-		
-		return Response.ok(articlePojo).build();
+		return articleDtos;
 	}
 	
 	@GET
-	@Path("/{id}")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String getArticlesText(@PathParam("id") Integer id) {
-		System.out.println("getArticles est appelée avec l'id : " + id);
-		ArticlePojo articlePojo = new ArticlePojo();
-		articlePojo.setId(id);
-		articlePojo.setNom("Article avec l'id : " + id);
-
-		return articlePojo.toString();
+	@Path("/{idArticle}")
+	public ArticleRestDto getArticles(@PathParam("idArticle") Integer id) {
+		System.out.println("getById called with Id : "+id);
+		Article article = this.articleService.get(id);
+		if(article==null) {
+			return null;
+		}
+		return new ArticleRestDto(article);
+	}
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ArticleRestDto save(@Valid ArticleRestDto articlePojo) {
+		System.out.println("save is called");
+		Article savedArticle = this.articleService.save(articlePojo.toArticle());
+		return new ArticleRestDto(savedArticle);
 	}
 
 	@DELETE
 	@Path("/{id}")
-	public String deleteArticles(@PathParam("id") Integer id) { 
-		System.out.println("deleteArticles est appelée avec l'id : " + id);
-		return "Je supprime l'article, avec l'id : " + id;
-	}
-
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	public ArticlePojo sauvegarde(@Valid ArticlePojo articlePojo) {
-		System.out.println("L'article :  " + articlePojo + " a été soumis par POST.");
-		if (articlePojo.getId() == null) {
-			articlePojo.setId(new Random().nextInt());
-		}
-		return articlePojo;
+	public void deleteArticles(@PathParam("id") Integer id) {
+		System.out.println("delete called with Id : "+id);
+		this.articleService.delete(id);
 	}
 
 }
